@@ -83,6 +83,23 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
+
+// Google OAuth configuration
+passport.use(new GoogleStrategy({
+  clientID: "285966908416-bgfcti7ss2mr0io2ea7bdpkj8aas39tc.apps.googleusercontent.com",
+  clientSecret: "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",
+  callbackURL: "http://localhost:3001/auth/google/callback"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
+
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body;
 
