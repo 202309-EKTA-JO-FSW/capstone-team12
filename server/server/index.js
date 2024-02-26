@@ -3,8 +3,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const connectToMongo = require("./db/connection");
-const adminRoute = require("./routes/admin");
-const userRoute = require("./routes/user");
+// const adminRoute = require("./routes/admin");
+// const userRoute = require("./routes/user");
 
 const app = express();
 const port =
@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));//true
 
 //middleware
 app.use(express.json());
-app.use('/api/admin', adminRoute);
-app.use("/api/user", userRoute);
+// app.use('/api/admin', adminRoute);
+// app.use("/api/user", userRoute);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
