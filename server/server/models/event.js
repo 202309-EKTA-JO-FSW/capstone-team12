@@ -1,8 +1,22 @@
 const mongoose = require('mongoose');
-const eventScemha = new mongoose.Schema({
-    eventId: {
-        type: Number,
+const reviewSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
+    rating: {
+        type: String,
+        enum: ['Excellent', 'Very good', 'Good'],
+        required: true,
+    },
+    comment: {
+        type: String,
+        trim: true,
+    },
+}, { timestamps: true });
+
+const eventSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -22,15 +36,12 @@ const eventScemha = new mongoose.Schema({
     },
     description: String,
     category: {
-        type: [String],
-        //type: String,
-        //   enum: ['Sport', 'Theater','Concert','Festivals'],
+        type: String,
+        enum: ['Sports', 'Theater', 'Concerts', 'Festivals', 'Conferences', 'Exhibitions'],
         required: true,
     },
-    eventImage: {
-        type: String,
-    },
-    numberOfGeust: {
+    eventImage: String,
+    numberOfGuests: {
         type: Number,
         required: true,
         min: 0,
@@ -43,21 +54,19 @@ const eventScemha = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    Tags: {
-        type: String,
-        neum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly'],
-        default: 'Popular',
+    tags: {
+        type: [String],
+        enum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly'],
     },
     ticketId: {
-        // type: Schema.Types.ObjectId,
-        type: String,
-        ref: "Ticket",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ticket',
     },
-    reviewID: {
-        //type: Schema.Types.ObjectId,
-        type: String,
-        ref: "Review",
-    },
+    reviews: [reviewSchema],
+}, { timestamps: true });
 
-});
-module.exports = mongoose.model("Event", eventScemha);
+module.exports = {
+    Review: mongoose.model('Review', reviewSchema),
+    Event: mongoose.model('Event', eventSchema),
+};
+

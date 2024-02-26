@@ -5,16 +5,13 @@ const ticketSchema = mongoose.Schema({
         type: Number,
     },
     userId: {
-        // type: Schema.Types.ObjectId,
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
     eventId: {
-        // type: Schema.Types.ObjectId,
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Event",
     },
-
     numberOfTickets: {
         type: Number,
         required: true,
@@ -24,8 +21,7 @@ const ticketSchema = mongoose.Schema({
         type: Date,
     },
     price: {
-        //type: Schema.Types.ObjectId,
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Event",
     },
     bill: {

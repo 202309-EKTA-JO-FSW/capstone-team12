@@ -32,7 +32,7 @@ const userSchema = new Schema({
     nationality: {
         type: String,
     },
-    address: {
+    location: {
         type: String,
     },
 

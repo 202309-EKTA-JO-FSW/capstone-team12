@@ -1,36 +1,63 @@
-// const express = require("express");
-// const router = express.Router();
+// const express = require('express')
+// const router = express.Router()
+// // const Validator = require("../middleware/validator");//for password and email 
+// // const userRole = require("../middleware/userRole");//admin or normal user
 
-// const userControllers = require("../controllers/user");
-// const userControllers = require("../controllers/auth");
-// const Validator = require("../validation/validator");//for password and email 
-// const userRole = require("../middleware/userRole");
+// const {
+//     getAllEvents,
+//     getSingleEvent,
+//     //filterEvents,
+//     //searchEvents,
+//     //singin ,
+//     //signup,
+//     getAllTickets,
+//     getSingleTicket,
+//     deleteSingleTicket,
+//     addTicket,
+//     createUserProfile,
+//     getUserProfile,
+//     updateUserProfile,
+//     //getEventReviews,
+//     //addEventReview,
+//     //createReview,
+//     //deleteReview,
+//     //updateReview,
 
-// //event (public API)
-// router.get("/events", userControllers.getAllEvents);
-// router.get("/events/:id", userControllers.getSingleEvent);
-// router.get("/events/filter", userControllers.filterEvents);
-// router.post("/events/search", userControllers.searchEvents);
-// //singin & signup
-// router.get("/signup", (_, res) => { res.render("auth/user/signup"); });
-// router.get("/signin", (_, res) => { res.render("auth/user/signin"); });
 
-// // authentication
-// router.post("/signup", Validator, userControllers.signup);
-// router.post("/signin", userControllers.signin);
-// router.get("/signout", userControllers.signout);
-// //Tickets(private API)
-// router.get("/user/tickets", userRole("user"), userControllers.getAllUserTickets);
-// router.delete("/user/tickets/:id", userRole("user"), userControllers.deleteTicket);
-// router.post("/user/tickets/:id", userRole("user"), userControllers.addTicket);
-// //user profile
-// router.get("/user/profile/:id", userRole("user"), userControllers.getUserProfile);
-// router.put("/user/profile/:id", userRole("user"), userControllers.updateUserProfile);
-// //review
-// router.get("/event/:id/reviews", userControllers.getEventReviews);
-// router.post("/user/event/:id/reviews", userRole("user"), userControllers.addEventReview);
-// router.delete("/user/reviews/:id", userRole("user"), userControllers.deleteReview);
-// router.put("/user/reviews/:id", userRole("user"), userControllers.editReview);
+//} = require('../controllers/user')
 
-// //cart 
-// module.exports = router;
+// ///Event
+//router.get('/events', getAllEvents)
+// router.get('/events/:id', getSingleEvent)
+// // router.get("/events/filter", filterEvents);
+// // router.post("/events/search", searchEvents);
+
+// /// singin & signup
+// // router.get("/signup", (_, res) => { res.render("auth/user/signup"); });
+// // router.get("/signin", (_, res) => { res.render("auth/user/signin"); });
+
+// /// authentication
+// // router.post("/signup", Validator, signup);
+// // router.post("/signin", signin);
+// // router.get("/signout", signout);
+
+// // user tickets
+// router.get("/tickets", userRole("user"), getAllTickets);
+// router.get("/tickets/:id", userRole("user"), getSingleTicket);
+// router.delete("/tickets/:id", userRole("user"), deleteSingleTicket);
+// router.patch("/tickets/:id", userRole("user"), addTicket);
+
+// // user profile
+// router.post("/profile/:id", userRole("user"), createUserProfile);
+// router.get("/profile/:id", userRole("user"), getUserProfile);
+// router.patch("/profile/:id", userRole("user"), updateUserProfile);
+
+// // user review 
+// // router.get("/event/:id/reviews", getEventReviews);
+// // router.post("/event/:id/reviews", userRole("user"), addEventReview);
+// // router.delete("/event/:id/reviews/:id", userRole("user"), deleteReview);
+// // router.patch("/event/:id/reviews/:id", userRole("user"), updateReview);
+
+
+//module.exports = router
+//
