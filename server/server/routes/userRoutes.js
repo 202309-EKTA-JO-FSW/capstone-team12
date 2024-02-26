@@ -6,12 +6,12 @@ const {
   getMe,
   signout,
 } = require('../controllers/userController')
-
-const { protect } = require('../middleware/authMiddleware')
+const adminMiddleware = require('../middleware/adminMiddleware');
+const authMiddleware = require('../middleware/authMiddleware')
 
 router.post('/signup', signup)
 router.post('/login', login)
-router.get('/me', protect, getMe)
+router.get('/me', authMiddleware, getMe)
 router.post('/signout', signout)
 
 module.exports = router

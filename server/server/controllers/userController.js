@@ -101,9 +101,9 @@ function(accessToken, refreshToken, profile, cb) {
 ));
 
 const signup = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password ,isAdmin} = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password) { 
     res.status(400);
     return next(new Error('Please include all fields'));
   }
@@ -123,6 +123,7 @@ const signup = async (req, res, next) => {
       name,
       email,
       password: hashedPassword,
+      isAdmin,
     });
 
     res.status(201).json({
