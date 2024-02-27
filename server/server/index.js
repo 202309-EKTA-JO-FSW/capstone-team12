@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const passport = require('passport');
+require('./config/passport')
+const authRoutes = require('./routes/authRoutes');
+
 
 const connectToMongo = require("./db/connection");
 // const adminRoute = require("./routes/admin");
@@ -19,6 +23,12 @@ app.use(express.urlencoded({ extended: false }));//true
 app.use(express.json());
 // app.use('/api/admin', adminRoute);
 // app.use("/api/user", userRoute);
+
+app.use('/api/users', require('./routes/userRoutes'))
+
+app.use('/auth', authRoutes);
+
+// app.use('/auth', require('./routes/authRoutes'));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
