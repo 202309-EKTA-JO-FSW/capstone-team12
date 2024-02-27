@@ -1,3 +1,5 @@
+// for using google in sign in and signup
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/userModel');

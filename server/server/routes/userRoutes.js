@@ -1,17 +1,22 @@
 const express = require('express')
 const router = express.Router()
+
 const {
   signup,
   login,
-  getMe,
+  profile,
   signout,
 } = require('../controllers/userController')
 const adminMiddleware = require('../middleware/adminMiddleware');
 const authMiddleware = require('../middleware/authMiddleware')
 
 router.post('/signup', signup)
+
 router.post('/login', login)
-router.get('/me', authMiddleware, getMe)
+
+router.get('/my-profile', authMiddleware, profile)
+
 router.post('/signout', signout)
+
 
 module.exports = router

@@ -11,4 +11,5 @@ router.get('/google/callback',
     // Successful authentication, redirect home or send response
     res.redirect('/');
   });
+
   module.exports = router;
