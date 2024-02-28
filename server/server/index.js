@@ -4,6 +4,7 @@ require("dotenv").config();
 const passport = require('passport');
 require('./config/passport')
 const authRoutes = require('./routes/authRoutes');
+const session = require('express-session');
 
 
 const connectToMongo = require("./db/connection");
@@ -23,6 +24,15 @@ app.use(express.urlencoded({ extended: false }));//true
 app.use(express.json());
 // app.use('/api/admin', adminRoute);
 // app.use("/api/user", userRoute);
+app.use(session({
+  secret: '12345',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/api/users', require('./routes/userRoutes'))
 
