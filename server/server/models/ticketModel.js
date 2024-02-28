@@ -20,19 +20,32 @@ const ticketSchema = mongoose.Schema({
     eventDate: {
         type: Date,
     },
+    // price
     price: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Event",
-    },
-    bill: {
         type: Number,
         required: true,
+        min: 0,
     },
+    // price: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Event",
+    // },
+
     ticketType: {
         type: String,
         neum: ['VIP', 'Normal'],
         default: 'Normal',
     },
+
+    boughtTickets: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+
+
+
+
 });
 
 module.exports = mongoose.model("Ticket", ticketSchema);

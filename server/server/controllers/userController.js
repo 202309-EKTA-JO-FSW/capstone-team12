@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const Ticket = require('../models/ticketModel');
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -14,17 +15,17 @@ passport.use(new GoogleStrategy({
   clientSecret: "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",
   callbackURL: "http://localhost:3001/auth/google/callback"
 },
-function(accessToken, refreshToken, profile, cb) {
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    return cb(err, user);
-  });
-}
+  function (accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
 ));
 
 const signup = async (req, res, next) => {
-  const { name, email, password ,isAdmin , profileImage, location, nationality, dateofBirth} = req.body;
+  const { name, email, password, isAdmin, profileImage, location, nationality, dateofBirth } = req.body;
 
-  if (!name || !email || !password ) { 
+  if (!name || !email || !password) {
     res.status(400);
     return next(new Error('Please include all fields'));
   }
@@ -89,12 +90,12 @@ const login = async (req, res, next) => {
 const profile = async (req, res, next) => {
   try {
     const user = {
-      profileImg:req.user.profileImage,
+      profileImg: req.user.profileImage,
       Email: req.user.email,
       Name: req.user.name,
-      Location:req.user.location,
-      Nationality:req.user.nationality,
-      DateOfBirth:req.user.dateofBirth
+      Location: req.user.location,
+      Nationality: req.user.nationality,
+      DateOfBirth: req.user.dateofBirth
     };
     res.status(200).json(user);
   } catch (error) {
@@ -116,17 +117,95 @@ const signout = async (req, res, next) => {
 };
 
 
-
-
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
   });
 };
 
+
+
+//create ticket
+const createTicket = async (req, res) => {
+  const { numberOfTickets, eventDate, price, ticketType } = req.body
+  try {
+    const ticketCreation = await Ticket.create({
+      numberOfTickets, eventDate, price, ticketType
+    })
+    const savedTicket = await ticketCreation.save();
+    res.status(200).json(savedTicket)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+//getAllTickets
+const getTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.find()
+      .populate('userId', 'name email  location').populate('eventId', 'title time location');
+    res.status(200).json(tickets, { error: error.message });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+};
+
+// single ticket
+const getTicket = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const ticket = await Ticket.findById(id)
+      .populate('userId', 'name email  location')
+      .populate('eventId', 'title time location');
+    if (!ticket) {
+      return res.status(404).json('the ticket is not avaliable ');
+    }
+    res.status(200).json(ticket);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// delete ticket  
+const deleteTicket = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedTicket = await Ticket.findByIdAndDelete(id);
+    if (!deletedTicket) {
+      return res.status(404).json({ error: error.message });
+    }
+    res.status(200).json(deletedTicket);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// update ticket  
+const updateTicket = async (req, res) => {
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: error.message })
+  }
+  const ticketUpdate = await Ticket.findOneAndUpdate({ _id: id },
+    { ...req.body },
+    { new: true });
+  if (!ticketUpdate) {
+    return res.status(400).json({ error: error.message })
+  }
+  res.status(200).json(ticketUpdate)
+}
+
+
 module.exports = {
   signup,
   login,
   profile,
   signout,
+
+  createTicket,
+  getTickets,
+  getTicket,
+  deleteTicket,
+  updateTicket,
 };

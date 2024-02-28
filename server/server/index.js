@@ -4,11 +4,10 @@ require("dotenv").config();
 const passport = require('passport');
 require('./config/passport')
 const authRoutes = require('./routes/authRoutes');
-
+const ticketsRoute = require("./routes/ticketRoutes");
 
 const connectToMongo = require("./db/connection");
-// const adminRoute = require("./routes/admin");
-// const userRoute = require("./routes/user");
+
 
 const app = express();
 const port =
@@ -21,18 +20,10 @@ app.use(express.urlencoded({ extended: false }));//true
 
 //middleware
 app.use(express.json());
-// app.use('/api/admin', adminRoute);
-// app.use("/api/user", userRoute);
-
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/auth', authRoutes);// app.use('/auth', require('./routes/authRoutes'));
+app.use('/api/tickets', ticketsRoute);
 
-
-
-
-
-app.use('/auth', authRoutes);
-
-// app.use('/auth', require('./routes/authRoutes'));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
