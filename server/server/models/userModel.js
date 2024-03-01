@@ -1,6 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const orderSchema = new mongoose.Schema({
+    boughtTickets: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    TicketItems: [
+        {
+            ticketId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Ticket",
+            },
+        },
+    ],
+
+});
 const userSchema = new Schema({
     userId: {
         type: Number,
@@ -27,7 +43,6 @@ const userSchema = new Schema({
     },
     dateofBirth: {
         type: Date,
-        // required: true,
     },
     nationality: {
         type: String,
@@ -35,14 +50,22 @@ const userSchema = new Schema({
     location: {
         type: String,
     },
-    
-
+    ////////// added 
+    cart: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cart",
+    },
+    orders: [orderSchema],
 },
-{
-  timestamps: true,
-}
+    {
+        timestamps: true,
+    }
 );
-
+module.exports = mongoose.model("Order", orderSchema);
 module.exports = mongoose.model("User", userSchema);
+
+
+
+
 
 

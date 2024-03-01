@@ -8,8 +8,8 @@ const session = require('express-session');
 
 
 const connectToMongo = require("./db/connection");
-// const adminRoute = require("./routes/admin");
-// const userRoute = require("./routes/user");
+const ticketRoutes = require('./routes/ticketRoutes');
+
 
 const app = express();
 const port =
@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: false }));//true
 
 //middleware
 app.use(express.json());
-// app.use('/api/admin', adminRoute);
-// app.use("/api/user", userRoute);
+app.use('/api/tickets', ticketRoutes);
+
 app.use(session({
   secret: '12345',
   resave: false,

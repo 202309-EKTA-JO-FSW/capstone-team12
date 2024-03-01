@@ -12,20 +12,20 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:3001/auth/google/callback"
 },
-async function(accessToken, refreshToken, profile, cb) {
-  try {
-    let user = await User.findOne({ googleId: profile.id });
+  async function (accessToken, refreshToken, profile, cb) {
+    try {
+      let user = await User.findOne({ googleId: profile.id });
 
-    if (!user) {
-      // If user is not found, create a new user
-      user = await User.create({ googleId: profile.id });
+      if (!user) {
+        // If user is not found, create a new user
+        user = await User.create({ googleId: profile.id });
+      }
+
+      return cb(null, user);
+    } catch (err) {
+      return cb(err, null);
     }
-    
-    return cb(null, user);
-  } catch (err) {
-    return cb(err, null);
   }
-}
 ));
 
 const generateToken = (userId) => {
@@ -35,7 +35,7 @@ const generateToken = (userId) => {
 const signup = async (req, res, next) => {
   const { name, email, password, isAdmin, profileImage, location, nationality, dateofBirth } = req.body;
 
-  if (!name || !email || !password) { 
+  if (!name || !email || !password) {
     res.status(400);
     return next(new Error('Please include all fields'));
   }
@@ -133,7 +133,7 @@ const signout = async (req, res, next) => {
 const editProfile = async (req, res, next) => {
   try {
     const { name, email, password, location, nationality, dateOfBirth } = req.body;
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     const updates = {};
     if (name) updates.name = name;
@@ -174,10 +174,10 @@ const editProfile = async (req, res, next) => {
 
 const deleteAccount = async (req, res, next) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.user._id;
     // Delete the user account from the database
     await User.findByIdAndDelete(userId);
-    
+
     res.status(200).json({ message: "Account deleted successfully" });
   } catch (error) {
     res.status(500);
@@ -185,4 +185,4 @@ const deleteAccount = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, profile, signout , editProfile, deleteAccount};
+module.exports = { signup, login, profile, signout, editProfile, deleteAccount };
