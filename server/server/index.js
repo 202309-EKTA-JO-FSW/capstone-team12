@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 
 
 const connectToMongo = require("./db/connection");
+const eventsRoute = require("./routes/eventRoutes");
 // const adminRoute = require("./routes/admin");
 // const userRoute = require("./routes/user");
 
@@ -21,14 +22,10 @@ app.use(express.urlencoded({ extended: false }));//true
 
 //middleware
 app.use(express.json());
-// app.use('/api/admin', adminRoute);
 // app.use("/api/user", userRoute);
 
-app.use('/api/users', require('./routes/userRoutes'))
-
-
-
-
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/events', eventsRoute);
 
 app.use('/auth', authRoutes);
 
