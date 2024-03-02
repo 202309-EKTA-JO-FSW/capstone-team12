@@ -5,11 +5,12 @@ const passport = require('passport');
 require('./config/passport')
 const authRoutes = require('./routes/authRoutes');
 const session = require('express-session');
-const ticketRoutes = require('./routes/ticketRoutes');
 
 
 const connectToMongo = require("./db/connection");
-
+const ticketRoutes = require('./routes/ticketRoutes');
+// const adminRoute = require("./routes/admin");
+// const userRoute = require("./routes/user");
 
 const app = express();
 const port =
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));//true
 //middleware
 app.use(express.json());
 
-
+// app.use("/api/user", userRoute);
 app.use(session({
   secret: '12345',
   resave: false,
@@ -35,8 +36,8 @@ app.use(passport.session());
 
 
 app.use('/api/users', require('./routes/userRoutes'))
-app.use('/api/tickets', ticketRoutes);
 
+app.use('/api/tickets', ticketRoutes);
 
 
 
