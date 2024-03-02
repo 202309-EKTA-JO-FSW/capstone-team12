@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const Ticket = require('../models/ticketModel');
+const Event = require('../models/eventModel');
 
 //create ticket
 const createTicket = async (req, res) => {
@@ -13,19 +15,18 @@ const createTicket = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
-
 //getAllTickets
 const getTickets = async (req, res) => {
     try {
         const tickets = await Ticket.find()
-            .populate('userId', ['name', 'location']).populate('eventId', ['title', ' time', ' location']);
-        res.status(200).json(tickets, { error: error.message });
+            .populate('userId', ['name', 'location'])
+            .populate('eventId', ['title', ' time', 'location']);
+
+        res.status(200).json(tickets);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-
 };
-
 // single ticket
 const getTicket = async (req, res) => {
     const { id } = req.params;
@@ -41,7 +42,6 @@ const getTicket = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
 // delete ticket  
 const deleteTicket = async (req, res) => {
     const { id } = req.params;
@@ -55,23 +55,28 @@ const deleteTicket = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-// update ticket  
+//update ticket
 const updateTicket = async (req, res) => {
-    const { id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: error.message })
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ error: error.message })
+        }
+        const { numberOfTickets, eventDate, price, ticketType } = req.body;
+        const ticketUpdate = await Ticket.findByIdAndUpdate(id, {
+            numberOfTickets,
+            eventDate,
+            price,
+            ticketType,
+        }, { new: true });
+        if (!ticketUpdate) {
+            return res.status(400).json({ error: error.message })
+        }
+        res.status(200).json(ticketUpdate);
+    } catch (error) {
+        res.status(error.status).json({ error: error.message })
     }
-    const ticketUpdate = await Ticket.findOneAndUpdate({ _id: id },
-        { ...req.body },
-        { new: true });
-    if (!ticketUpdate) {
-        return res.status(400).json({ error: error.message })
-    }
-    res.status(200).json(ticketUpdate)
-}
-
-
+};
 module.exports = {
     createTicket,
     getTickets,
