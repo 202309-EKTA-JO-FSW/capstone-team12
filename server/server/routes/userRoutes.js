@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
 const {
   signup,
@@ -8,20 +8,21 @@ const {
   signout,
   editProfile,
   deleteAccount,
-} = require('../controllers/userController')
-const adminMiddleware = require('../middleware/adminMiddleware');
-const authMiddleware = require('../middleware/authMiddleware')
+} = require("../controllers/userController");
+const adminMiddleware = require("../middleware/adminMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
+const validator = require("../middleware/validator");
 
-router.post('/signup', signup)
+router.post("/signup", validatorUserSigneUp, validationResult, signup);
 
-router.post('/login', login)
+router.post("/login", login);
 
-router.get('/my-profile', authMiddleware, profile)
+router.get("/my-profile", authMiddleware, profile);
 
-router.post('/signout', signout)
+router.post("/signout", signout);
 
-router.put('/edit-profile', authMiddleware, editProfile);
+router.put("/edit-profile", authMiddleware, editProfile);
 
-router.delete('/delete-account', authMiddleware, deleteAccount);
+router.delete("/delete-account", authMiddleware, deleteAccount);
 
-module.exports = router
+module.exports = router;
