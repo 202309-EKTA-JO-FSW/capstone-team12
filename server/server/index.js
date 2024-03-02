@@ -8,6 +8,7 @@ const session = require('express-session');
 
 
 const connectToMongo = require("./db/connection");
+const eventsRoute = require("./routes/eventRoutes");
 // const adminRoute = require("./routes/admin");
 // const userRoute = require("./routes/user");
 
@@ -22,7 +23,6 @@ app.use(express.urlencoded({ extended: false }));//true
 
 //middleware
 app.use(express.json());
-// app.use('/api/admin', adminRoute);
 // app.use("/api/user", userRoute);
 app.use(session({
   secret: '12345',
@@ -34,11 +34,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('/api/users', require('./routes/userRoutes'))
-
-
-
-
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/events', eventsRoute);
 
 app.use('/auth', authRoutes);
 
