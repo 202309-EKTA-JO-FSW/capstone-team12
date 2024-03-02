@@ -22,11 +22,12 @@ const authMiddleware = async (req, res, next) => {
     console.log("User (authMiddleware):", user);
 
     req.user = user;
-    next();
+    
   } catch (error) {
     console.error("Error in authMiddleware:", error);
     return res.status(401).json({ message: "Unauthorized: Invalid token" });
   }
+  next();// change next from line25 to line30
 };
 
 module.exports = authMiddleware;

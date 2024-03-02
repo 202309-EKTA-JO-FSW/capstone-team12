@@ -56,7 +56,7 @@ const eventSchema = new mongoose.Schema({
     },
     tags: {
         type: [String],
-        enum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly'],
+        enum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly', "UpComing"],
     },
     ticketId: {
         type: mongoose.Schema.Types.ObjectId,

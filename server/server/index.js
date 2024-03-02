@@ -8,7 +8,11 @@ const session = require('express-session');
 
 
 const connectToMongo = require("./db/connection");
+
 const ticketRoutes = require('./routes/ticketRoutes');
+
+const eventsRoute = require("./routes/eventRoutes");
+
 // const adminRoute = require("./routes/admin");
 // const userRoute = require("./routes/user");
 
@@ -35,11 +39,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/api/tickets', ticketRoutes);
 
 
+
+
+
+app.use('/api/events', eventsRoute);
 
 
 app.use('/auth', authRoutes);
