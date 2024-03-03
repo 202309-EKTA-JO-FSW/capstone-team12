@@ -10,7 +10,7 @@ const {
     updateTicket,
 } = require('../controllers/ticketController')
 
-router.post('/createTicket', adminMiddleware, authMiddleware, createTicket)// adminMiddleware,authMiddleware
+router.post('/createTicket', createTicket)// adminMiddleware,authMiddleware
 router.get('/getTickets', authMiddleware, getTickets)//authMiddleware
 router.get('/getTickets/:id', authMiddleware, getTicket)//authMiddleware
 router.delete('/deleteTicket/:id', authMiddleware, deleteTicket)//authMiddleware

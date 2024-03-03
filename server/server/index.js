@@ -13,6 +13,8 @@ const ticketRoutes = require('./routes/ticketRoutes');
 
 const eventsRoute = require("./routes/eventRoutes");
 
+const orderRoutes = require('./routes/orderRoutes')
+
 // const adminRoute = require("./routes/admin");
 // const userRoute = require("./routes/user");
 
@@ -38,20 +40,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/api/events', eventsRoute);
 
+app.use('/auth', authRoutes);
 
 app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/api/tickets', ticketRoutes);
 
+app.use('/api', orderRoutes);
 
 
 
 
-app.use('/api/events', eventsRoute);
 
 
-app.use('/auth', authRoutes);
+
+
 
 // app.use('/auth', require('./routes/authRoutes'));
 

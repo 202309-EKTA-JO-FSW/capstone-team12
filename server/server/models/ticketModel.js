@@ -29,7 +29,7 @@ const ticketSchema = mongoose.Schema({
 
     ticketType: {
         type: String,
-        neum: ['VIP', 'Normal'],
+        enum: ['VIP', 'Normal'],
         default: 'Normal',
     },
 
