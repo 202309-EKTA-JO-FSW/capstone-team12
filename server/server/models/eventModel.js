@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+
 const reviewSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
+    // userId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true,
+    // },
     rating: {
         type: String,
         enum: ['Excellent', 'Very good', 'Good'],
@@ -17,6 +18,13 @@ const reviewSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const eventSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     title: {
         type: String,
         required: true,
@@ -34,7 +42,10 @@ const eventSchema = new mongoose.Schema({
         required: true,
         min: 0,
     },
-    description: String,
+    description: {
+        type: [String],
+        default: ["Event"],
+    },
     category: {
         type: String,
         enum: ['Sports', 'Theater', 'Concerts', 'Festivals', 'Conferences', 'Exhibitions'],
@@ -58,7 +69,7 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         enum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly', "UpComing"],
     },
-    ticketId: {
+    tickets: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ticket',
     },
