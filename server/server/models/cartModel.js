@@ -1,28 +1,26 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const cartSchema = new Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+const cartItemSchema = new Schema({
+    ticket: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ticket',
+        required: true
     },
-    bill: {
-        type: Number
-    },
-    //info for  tickets for different events  
-    //for example in the cart  6 tickets for a sport event ,7 for a concert ... 
-    ticketItems: [
-        {
-            quantity: {
-                type: Number,
-            },
-            ticketId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Ticket",
-            },
-
-        },
-    ],
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1
+    }
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+const cartSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    items: [cartItemSchema]
+});
+
+module.exports = mongoose.model('Cart', cartSchema);

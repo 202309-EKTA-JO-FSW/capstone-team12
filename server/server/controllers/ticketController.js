@@ -4,10 +4,10 @@ const Event = require('../models/eventModel');
 
 //create ticket
 const createTicket = async (req, res) => {
-    const { numberOfTickets, eventDate, price, ticketType } = req.body
+    const { numberOfTickets, eventDate, price, ticketType , availableTickets} = req.body
     try {
         const ticketCreation = await Ticket.create({
-            numberOfTickets, eventDate, price, ticketType
+            numberOfTickets, eventDate, price, ticketType, availableTickets
         })
         const savedTicket = await ticketCreation.save();
         res.status(200).json(savedTicket)

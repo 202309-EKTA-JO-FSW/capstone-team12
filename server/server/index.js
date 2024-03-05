@@ -10,6 +10,15 @@ const connectToMongo = require("./db/connection");
 const ticketRoutes = require('./routes/ticketRoutes');
 const eventsRoute = require("./routes/eventRoutes");
 
+
+const orderRoutes = require('./routes/orderRoutes')
+
+const cartRoutes = require('./routes/cartRoutes')
+
+// const adminRoute = require("./routes/admin");
+// const userRoute = require("./routes/user");
+
+
 const app = express();
 
 const port =
@@ -34,9 +43,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/events', eventsRoute);
+
 app.use('/auth', authRoutes);
+
 app.use('/api/users', require('./routes/userRoutes'))
+
 app.use('/api/tickets', ticketRoutes);
+
+app.use('/api/cart', cartRoutes)
+
+app.use('/api', orderRoutes);
+
+
+
+
+
+
+
+
+
 
 // app.get("/test", (req, res) => {
 //   res.json(

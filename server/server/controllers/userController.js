@@ -29,7 +29,7 @@ passport.use(new GoogleStrategy({
 ));
 
 const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
 const signup = async (req, res, next) => {
@@ -116,7 +116,7 @@ const profile = async (req, res, next) => {
 
 const signout = async (req, res, next) => {
   try {
-    // Clear the JWT token cookie by setting its expiration to a past date
+   
     res.cookie('token', '', { expires: new Date(0), httpOnly: true });
 
     // clear any other user-related data from the request object
@@ -175,7 +175,7 @@ const editProfile = async (req, res, next) => {
 const deleteAccount = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    // Delete the user account from the database
+   
     await User.findByIdAndDelete(userId);
 
     res.status(200).json({ message: "Account deleted successfully" });
