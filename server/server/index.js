@@ -15,7 +15,7 @@ const eventsRoute = require("./routes/eventRoutes");
 
 const orderRoutes = require('./routes/orderRoutes')
 
-const caerRoutes = require('./routes/cartRoutes')
+const cartRoutes = require('./routes/cartRoutes')
 
 // const adminRoute = require("./routes/admin");
 // const userRoute = require("./routes/user");
@@ -50,7 +50,7 @@ app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/api/tickets', ticketRoutes);
 
-app.use('/api/cart', caerRoutes)
+app.use('/api/cart', cartRoutes)
 
 app.use('/api', orderRoutes);
 
