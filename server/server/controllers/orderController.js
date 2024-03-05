@@ -102,7 +102,7 @@ const Ticket = require('../models/ticketModel');
 const createOrder = async (req, res, next) => {
   try {
       const { boughtTickets, ticketItems } = req.body;
-      const userId = req.user._id; // Assuming you have authentication middleware
+      const userId = req.user._id; 
       
       let totalPrice = 0; // Initialize total price
 
@@ -145,7 +145,7 @@ const createOrder = async (req, res, next) => {
 // Get all orders for a user
 const getUserOrders = async (req, res, next) => {
     try {
-        const userId = req.user._id; // Assuming you have authentication middleware
+        const userId = req.user._id; 
 
         const orders = await Order.find({ user: userId });
 
