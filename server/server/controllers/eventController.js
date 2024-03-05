@@ -1,179 +1,128 @@
+// const mongoose = require('mongoose');
 // const User = require('../models/userModel');
 const {Event} = require("../models/eventModel");
-const {tikets} = require("../models/ticketModel");
+// const {tikets} = require("../models/ticketModel");
 
-// const slugify = (text) => text.toString().toLowerCase()
-//   .replace(/\s+/g, '-')           // Replace spaces with -
-//   .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-//   .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-//   .replace(/^-+/, '')             // Trim - from start of text
-//   .replace(/-+$/, '');           // Trim - from end of text
-
-
+//home page
 const homepageForEvents = async(req, res, next)=>{
-    try {
-        const events = await Event.find({});
-        res.json(events);
-    } catch (error) {
-        res.status(500)
-        return next(new Error('Server error'));
-    }
-    next();
+  try {
+    const events = await Event.find({});
+    res.status(200).json(events);
+  } 
+  catch (error) {
+    res.status(500)
+    return next(new Error('Server error'));
+  }
 }
 
 // CRUD events
 const addNewEvent = async (req, res) =>{
-    try {
-        const {
-          title, 
-          time, 
-          location, 
-          price, 
-          description, 
-          category,
-          tags,
-          startDate,
-          endDate,
-          numberOfGuests,
-          // ticketId, 
-          reviews,
-        } = req.body;
+  try {
+    const requiredFields = [
+      'title',
+      'time',
+      'location', 
+      'price', 
+      'category', 
+      'startDate', 
+      'endDate', 
+      'numberOfGuests', 
+    ];
 
-      //   if (ticketId && !mongoose.Types.ObjectId.isValid(ticketId)) {
-      //     return res.status(400).send({ message: 'Invalid ticketId provided' });
-      // }
-      // console.log("Received numberOfGuests: ", numberOfGuests);
-       
-        // const slug = slugify(title); 
-        // create the newEvent
-        const newEvent =  new Event({
-          title,
-          time,
-          location,
-          price,
-          description,
-          category,
-          tags,
-          // slug,
-          startDate,
-          endDate,
-          numberOfGuests,
-          // ticketId, 
-          reviews,
-        });
-        await newEvent.save();
-        //save the new event
-        res.status(201).json({ 
-          _id: newEvent._id,
-          title: newEvent.title,
-          location: newEvent.location,
-          time: newEvent.time,
-          slug: newEvent.slug,
-        }
-          ,{ message: "Admin created event successfully." });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error', error: error.message });
+    const missingFields = requiredFields.filter(field => !req.body[field]);
+
+    if (missingFields.length > 0) {
+        return res.status(400)
+        .json({ 'message': `The following fields are required: ${missingFields.join(', ')}` });
     }
+          const result = await Event.create({
+            title: req.body.title,
+            time: req.body.time,
+            location: req.body.location,
+            price: req.body.price,
+            category: req.body.category,
+            numberOfGuests: req.body.numberOfGuests,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            reviews: [],
+            tags:[],
+            description:"write whats is your event description"
+          });
+
+          res.status(201).json(result);
+      } catch (err) {
+          console.error(err);
+          res.status(500).json({ 'message': 'Server error occurred while creating the event.' });
+      }
+}
+
+
+ const deleteEvent =async(req, res) => {
+      // if (!req?.body?.id) return res.status(400).json({ 'message': 'Event ID required.' });
+
+      const event = await Event.findOne({ _id: req.body.id }).exec();
+      if (!event) {
+          return res.status(204).json({ "message": `No Events matches ID ${req.body.id}.` });
+      }
+      const result = await event.deleteOne(); //{ _id: req.body.id }
+      res.json(result);
+    }
+
+const getSingleEventInfo = async (req, res) => {
+  if (!req?.params?.id) return res.status(400).json({ "message": 'event ID required' });
+  const event = await Event.findOne({ _id: req.params.id }).exec();
+  if (!event) {
+      return res.status(204).json({ 'message': `event ID ${req.params.id} not found` });
   }
+  res.json(event);
+}
+const getAdminEventInfo = async (req, res) => {
+    if (!req?.params?.id) return res.status(400).json({ "message": 'event ID required' });
+    const event = await Event.findOne({ _id: req.params.id }).exec();
+    if (!event) {
+        return res.status(204).json({ 'message': `event ID ${req.params.id} not found` });
+    }
+    res.json(event);
+}
 
+const updateEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newEventBody = req.body;
 
-  //  const updateEvent = async(req, res, next)=>{
-  //   try {
-  //     const { _id } = req.params;
-  //     const eventUpdate = req.body;
+    const updatedEvent = await Event.findByIdAndUpdate(id, newEventBody, {
+      new: true,
+    });
 
-  //     const newEventUpdate = await Event.findByIdAndUpdate( _id, eventUpdate, {
-  //         new: true,
-  //       });
-    
-  //       if (!eventUpdate) {
-  //         res.status(404).json({ error: "event not found" });
-  //       }
-      
-  //       res
-  //         .status(201)
-  //         .json({ message: "event updated sucessfully!", Event: newEventUpdate });
-  //     } catch (error) {
-  //       console.error(error);
-  //       res.status(500)
-  //       return next(new Error('Server error'));
-  //     }
+    if (!updatedEvent) {
+      res.status(404).json({ error: "Event not found" });
+    }
+
+    res
+      .status(201)
+      .json({ message: "Event updated sucessfully!", event: updatedEvent });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+  //   if (!req?.body?.id) {
+  //     return res.status(400).json({ 'message': 'ID parameter is required.' });
+  // }
+  //   const event = await Event.findOne({ _id: req.body.id }).exec();
+  //   if (!event) {
+  //       return res.status(204).json({ "message": `No event matches ID ${req.body.id}.` });
   //   }
-
-    // async function deleteEvent(req, res, next){
-    //     try {
-    //         const { _id } = req.params.id;
-        
-    //         const deleteEvent = await Event.findByIdAndRemove(_id);
-                    
-    //         if (!deleteEvent) {
-    //             return res.status(400).json({ message: "The item is not found" });
-    //         }
-    //         res.status(200).json({ message: "event deleted sucessfully!" });
-    //       } catch (error) {
-    //         res.status(500)
-    //         return next(new Error('Server error'));
-    //       }
-    //     }
-
-        const getFilteredEventsByTagsCato = async (req, res, next) => {
-          try {
-              const { category, tags } = req.query;
-              let query = {};
-      
-              // Filter by category 
-              if (category && ['Sports', 'Theater', 'Concerts', 'Festivals', 'Conferences', 'Exhibitions'].includes(category)) {
-                  query.category = category;
-              }
-      
-              // Filter by tags 
-              if (tags) {
-                  const tagsArray = tags.split(',').filter(tag => ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly', 'UpComing'].includes(tag));
-                  if (tagsArray.length) {
-                      query.tags = { $in: tagsArray };
-                  }
-              }
-      
-              const events = await Event.find(query).sort({ createdAt: -1 }); // Sorting by creation date as an example
-      
-              if (events.length) {
-                  res.status(200).json(events);
-              } else {
-                  res.status(404).json({ message: "No matching events found." });
-              }
-          } catch (error) {
-              next(error);
-          }
-      };
-      
-// const getSingleEvent =async(req, res)=>{
-//   try {
-//     const { slug } = req.params;
-
-//     if (!slug || slug.length === 0) {
-//       return res.status(400).send({ message: 'Invalid event slug provided' });
-//     }
-
-//     const event = await Event.findById({ title: slug });
-
-//     if (!event) {
-//       return res.status(404).send({ message: 'Event not found' });
-//     }
-
-//     res.status(200).json(event);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Server error', error: error.message });
-//   }
-// };// does not work will by the title// i gonna work more on it 
-
-
-    module.exports = {
-        addNewEvent,
-        // updateEvent,
-        // deleteEvent,
-        getFilteredEventsByTagsCato,
-        // getSingleEvent,
-        homepageForEvents,
-      };
+  //   // if (req.body?.description) event.description = req.body.description;
+  //   if (req.body?.price) event.price = req.body.price;
+  //   const result = await event.save();
+  //   res.json(result);
+  //   }
+  
+  module.exports = {
+    addNewEvent,
+    updateEvent,
+    deleteEvent,
+    getSingleEventInfo,
+    homepageForEvents,
+    getAdminEventInfo,
+};

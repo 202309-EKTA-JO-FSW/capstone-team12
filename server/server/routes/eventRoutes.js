@@ -1,43 +1,40 @@
 const express = require("express");
 const router = express.Router();
 
-// const adminMiddleware = require('../middleware/adminMiddleware');
-// const authMiddleware = require('../middleware/authMiddleware');
-
-const {
-    addNewEvent,
-    // updateEvent,
-    getFilteredEventsByTagsCato,
-    // getSingleEvent,
-    // getSingleEventAdmin,
-    // deleteEvent,
-    homepageForEvents
-}= require("../controllers/eventController");
+const authMiddleware = require('../middleware/authMiddleware');
+const adminMiddleware = require('../middleware/adminMiddleware');
+const eventController= require("../controllers/eventController");
+const reviews= require("../controllers/reviewController");
+const filtered= require("../controllers/filterControllers");
 
 // // to manage events...
-router.post("/new", addNewEvent);// in progress
-// router.patch("/updated/:id", updateEvent);
-// router.delete("/deleted/:id", deleteEvent);
-router.get("/filter",  getFilteredEventsByTagsCato);
-// router.get("/:id", getSingleEvent);
-// router.get("/events/:id",adminMiddleware,authMiddleware, getSingleEventAdmin); //based special for admain 
-router.get("/", homepageForEvents);// done
+router.route("/")
+.get(eventController.homepageForEvents)// done
+.get(filtered.getFilteredEventsByTagsCato) //done
+.get(filtered.getFilteredEventsByPrice)//done
+.post(filtered.searchforEvents);// done
+// .get(eventController.getFilteredEventsByLocation)// in progress
+// .get(eventController.getFilteredEventsByTime); // in progress
 
-// // managing the events page
-// // home page
-// router.get("/event", getEventsByCategory);
+router.route("/:id")
+.get(eventController.getSingleEventInfo);//done
 
-// // recives  comments and review
-// // router.get("/admin/events/comments/comment", getMessages);
-// // router.put("/admin/events/comments/comment", addComment);
-// // router.delete("/admin/events/comments/delete/:id", getMessages);
-// // router.get("/admin/events/review", getReviewsResults); 
+// // managing the events by dashboard page
+router.route("/dashboard/admin")
+.post( authMiddleware, adminMiddleware, eventController.addNewEvent);//done
+// .post( authMiddleware, adminMiddleware, eventController.seeAllAdminEvents)//in progress
 
-// // Dashbords and target audience if there is timw
-// // router.get("/admin/dashbord/events/:id/ticket/:id", ticketsLeft);
-// // router.get("/admin/dashbord/events/tickets", allTicketsLeft);
+router.route("/dashboard/admin/event/:id", adminMiddleware)
+.patch(authMiddleware, adminMiddleware, eventController.updateEvent)// cannot work
+.delete(authMiddleware, adminMiddleware, eventController.deleteEvent)// done
+.get(authMiddleware, adminMiddleware, eventController.getAdminEventInfo) //done
+//.get(eventController.ticketsLeft);//// tickets should add on schema 
 
-// // router.get("/admin/dashbord/events", gitAdminAllEvents);
-// // router.get("/admin/dashbord/events/:id", oneEvent);
+router.route("/review/:d")
+.get( reviews.getReview);//done
+
+router.route("/create/reviews/:d")
+.put( authMiddleware,  reviews.addReview)//done
+.delete( authMiddleware, reviews.deleteReview);//done
 
 module.exports = router;
