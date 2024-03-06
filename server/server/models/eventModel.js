@@ -69,10 +69,10 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         enum: ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly', "UpComing"],
     },
-    tickets: {
-        type: mongoose.Schema.Types.ObjectId,
+    tickets: [{
+         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ticket',
-    },
+     }],
     reviews: [reviewSchema],
 }, { timestamps: true });
 
