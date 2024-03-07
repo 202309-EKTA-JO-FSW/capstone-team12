@@ -27,6 +27,7 @@ const addNewEvent = async (req, res) =>{
       'startDate', 
       'endDate', 
       'numberOfGuests', 
+      'tickets',
     ];
 
     const missingFields = requiredFields.filter(field => !req.body[field]);
@@ -46,7 +47,8 @@ const addNewEvent = async (req, res) =>{
             endDate: req.body.endDate,
             reviews: [],
             tags:[],
-            description:"write whats is your event description"
+            description:"write whats is your event description",
+            tickets:[]
           });
 
           res.status(201).json(result);
