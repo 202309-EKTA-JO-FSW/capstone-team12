@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'; 
 import Cart from '../components/Cart';
 import ClearCartButton from '../components/ClearCart';
+import CreateOrderForm from '../components/CreatOrder';
 
 
 const CartPage = () => {
@@ -45,11 +46,13 @@ return (
     {cart ? (
       <>
         <Cart cart={cart} />
+        <p>{console.log(cart)}</p>
         <ClearCartButton onSuccess={() => setCart(null)} onError={() => alert('Failed to clear cart')} />
       </>
     ) : (
       <p>Cart Is Empty</p>
     )}
+    <CreateOrderForm cart={cart}/>
   </div>
 );
 };

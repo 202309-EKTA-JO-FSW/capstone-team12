@@ -32,9 +32,9 @@ const UserOrders = () => {
   return (
     <div>
       <h2>Your Orders</h2>
-      {userOrders.length === 0 ? (
+      {/* {userOrders.length === 0 ? (
         <p>No orders found.</p>
-      ) : (
+      ) : ( */}
         <ul>
           {userOrders.map(order => (
             <li key={order._id}>
@@ -45,7 +45,7 @@ const UserOrders = () => {
             </li>
           ))}
         </ul>
-      )}
+      
     </div>
   );
 };

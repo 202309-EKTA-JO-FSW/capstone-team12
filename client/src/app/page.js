@@ -5,6 +5,10 @@ import DeleteAccountButton from "./components/DeleteAccountButton";
 import Login from "./pages/Login";
 import CartPage from "./pages/CartPage";
 import { useRouter } from "next/navigation";
+import ProfilePageWithEdit from "./pages/ProfilePageWithEdit";
+import UserOrders from "./components/UserOrders";
+import CreateOrderForm from "./components/CreatOrder";
+import ChangePasswordComponent from "./components/ChangePassword";
 
 
 export default function Home() {
@@ -18,6 +22,11 @@ export default function Home() {
         <DeleteAccountButton/>
         <Login/>
         <CartPage/>
+        <ProfilePageWithEdit/>
+        {/* <ChangePasswordComponent/> */}
+        
+        
+        <UserOrders/>
 
       </div>
     </main>

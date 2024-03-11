@@ -1,8 +1,12 @@
 // components/Cart.js
 import React from 'react';
 import RemoveFromCartButton from './[RemoveFromCart]';
+import CreateOrderForm from './CreatOrder';
+
 
 const Cart = ({ cart }) => {
+
+  
   return (
     <div>
       <h2>Cart Items</h2>
@@ -20,8 +24,11 @@ const Cart = ({ cart }) => {
             {/* Add more details if needed */}
           </li>
         ))}
+        
       </ul>
+      
     </div>
+    
   );
 };
 

@@ -47,7 +47,7 @@ const EditProfileForm = ({ profileData, onSuccess }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)}  />
         </div>
         <div>
           <label>Location:</label>
