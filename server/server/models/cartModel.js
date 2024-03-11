@@ -12,6 +12,14 @@ const cartItemSchema = new Schema({
         required: true,
         default: 1
     }
+    // },
+    // eventId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Event",
+    //     required:true,
+    // }
+        
+    
 });
 
 const cartSchema = new Schema({
@@ -20,6 +28,12 @@ const cartSchema = new Schema({
         ref: 'User',
         required: true
     },
+    
+
+        // eventId: {
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: "Event",
+        // required:true},
     items: [cartItemSchema]
 });
 

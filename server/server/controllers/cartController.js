@@ -1,4 +1,5 @@
 const Cart = require('../models/cartModel');
+ 
 
 // Add item to cart
 const addItemToCart = async (req, res, next) => {
@@ -82,7 +83,10 @@ const getUserCart = async (req, res, next) => {
     try {
         const userId = req.user._id;
 
-        const cart = await Cart.findOne({ user: userId }).populate('items.ticket');
+        const cart = await Cart.findOne({ user: userId })
+        .populate('items.ticket')
+
+        // .populate('eventId', ['title', ' time', ' location']);
 
         if (!cart) {
             res.status(404);

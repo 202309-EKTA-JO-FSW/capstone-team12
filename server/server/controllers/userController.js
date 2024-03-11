@@ -6,7 +6,10 @@ const User = require('../models/userModel');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-// Google OAuth configuration
+const generateToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '30d' });
+};
+
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -17,20 +20,20 @@ passport.use(new GoogleStrategy({
       let user = await User.findOne({ googleId: profile.id });
 
       if (!user) {
-        // If user is not found, create a new user
+        
         user = await User.create({ googleId: profile.id });
       }
 
-      return cb(null, user);
+     
+      const token = generateToken(user._id);
+      
+      // Pass the user and token to the callback function
+      return cb(null, { user, token });
     } catch (err) {
       return cb(err, null);
     }
   }
 ));
-
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '30d' });
-};
 
 const signup = async (req, res, next) => {
   const { name, email, password, isAdmin, profileImage, location, nationality, dateofBirth } = req.body;
