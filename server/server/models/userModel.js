@@ -41,7 +41,7 @@ const userSchema = new Schema({
     profileImage: {
         type: String,
     },
-    dateofBirth: {
+    dateOfBirth: {
         type: Date,
     },
     nationality: {

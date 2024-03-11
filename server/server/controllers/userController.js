@@ -36,7 +36,7 @@ passport.use(new GoogleStrategy({
 ));
 
 const signup = async (req, res, next) => {
-  const { name, email, password, isAdmin, profileImage, location, nationality, dateofBirth } = req.body;
+  const { name, email, password, isAdmin, profileImage, location, nationality, dateOfBirth } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
@@ -62,7 +62,7 @@ const signup = async (req, res, next) => {
       profileImage,
       location,
       nationality,
-      dateofBirth,
+      dateOfBirth,
     });
 
     res.status(201).json({
@@ -108,7 +108,7 @@ const profile = async (req, res, next) => {
       Name: req.user.name,
       Location: req.user.location,
       Nationality: req.user.nationality,
-      DateOfBirth: req.user.dateofBirth
+      DateOfBirth: req.user.dateOfBirth
     };
     res.status(200).json(user);
   } catch (error) {
@@ -164,7 +164,7 @@ const editProfile = async (req, res, next) => {
       Name: updatedUser.name,
       Location: updatedUser.location,
       Nationality: updatedUser.nationality,
-      DateOfBirth: updatedUser.dateofBirth
+      DateOfBirth: updatedUser.dateOfBirth
     };
 
     res.status(200).json(userProfile);
