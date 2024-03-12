@@ -30,6 +30,8 @@
 // }
 
 import "./globals.css";
+import { Suspense } from 'react'
+import Signup from "./pages/Signup";
 
 
 
@@ -41,7 +43,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        {children}
+
+      <Suspense fallback={null}>
+          <Signup />
+        </Suspense>
+
+      </body>
     </html>
   );
 }

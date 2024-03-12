@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import DeleteOrderButton from './DeleteOrder';
 
 const UserOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -41,6 +42,7 @@ const UserOrders = () => {
               {/* Display order details */}
               <p>Order ID: {order._id}</p>
               <p>Total Price: {order.totalPrice}</p>
+              <DeleteOrderButton orderId={order._id}/>
               {/* Add more order details as needed */}
             </li>
           ))}

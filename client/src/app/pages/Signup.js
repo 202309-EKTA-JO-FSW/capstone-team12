@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const Signup = () => {
   // State variables for form inputs and error handling
@@ -13,6 +15,16 @@ const Signup = () => {
   const [nationality, setNationality] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [error, setError] = useState('');
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  
+
+  useEffect(() => {
+    const url = `${'/Signup'}?${searchParams}`
+    console.log(url)
+    // You can now use the current URL
+    // ...
+  }, [pathname, searchParams])
 
   // Function to handle form submission
   const handleSubmit = async (e) => {

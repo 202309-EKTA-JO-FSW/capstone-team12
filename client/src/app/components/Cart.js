@@ -1,7 +1,8 @@
 // components/Cart.js
 import React from 'react';
-import RemoveFromCartButton from './[RemoveFromCart]';
+import RemoveFromCartButton from './RemoveFromCart';
 import CreateOrderForm from './CreatOrder';
+
 
 
 const Cart = ({ cart }) => {
@@ -21,6 +22,7 @@ const Cart = ({ cart }) => {
             <p>Ticket Price: {item.ticket.price}</p>
             <p>Total Price: {item.ticket.price*item.quantity}</p>
             <p>Ticket Type: {item.ticket.ticketType}</p>
+            
             {/* Add more details if needed */}
           </li>
         ))}

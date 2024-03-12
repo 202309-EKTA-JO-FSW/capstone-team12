@@ -4,6 +4,8 @@ import axios from 'axios';
 import Cart from '../components/Cart';
 import ClearCartButton from '../components/ClearCart';
 import CreateOrderForm from '../components/CreatOrder';
+import RemoveFromCartButton from '../components/RemoveFromCart';
+
 
 
 const CartPage = () => {
@@ -46,6 +48,7 @@ return (
     {cart ? (
       <>
         <Cart cart={cart} />
+        <RemoveFromCartButton cart={cart}/>
         <p>{console.log(cart)}</p>
         <ClearCartButton onSuccess={() => setCart(null)} onError={() => alert('Failed to clear cart')} />
       </>
