@@ -6,7 +6,7 @@ const DeleteOrderButton = ({ orderId }) => {
     try {
       const token = localStorage.getItem('token');
 
-      // Send DELETE request to delete order
+      
       const response = await axios.delete(
         `http://localhost:3001/api/orders/${orderId}`,
         {
@@ -23,7 +23,7 @@ const DeleteOrderButton = ({ orderId }) => {
   };
 
   return (
-    <button onClick={handleDelete}>Delete Order</button>
+    <button type="button" class="btn btn-outline-success" onClick={handleDelete}>Delete Order</button>
   );
 };
 

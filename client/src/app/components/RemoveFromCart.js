@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const RemoveFromCartButton = ({ cart }) => {
   const ticketId = cart.items.map(item=>item.ticket._id )
+  console.log(ticketId)
   const removeFromCart = async () => {
     try {
       const token = localStorage.getItem('token'); 

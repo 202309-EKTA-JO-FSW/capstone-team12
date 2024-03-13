@@ -9,10 +9,10 @@ const DeleteAccountButton = ({ onSuccess }) => {
 
     const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
 
-    // If user confirms deletion, proceed with deletion
+    
     if (confirmed) {
       try {
-        // Make a DELETE request to delete user account
+        
         await axios.delete(`http://localhost:3001/api/users/delete-account/`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -21,13 +21,13 @@ const DeleteAccountButton = ({ onSuccess }) => {
 
         localStorage.removeItem('token');
 
-        // Call onSuccess callback to notify parent component
+        
         onSuccess();
 
         router.push('/')
       } catch (error) {
         console.error('Error deleting account:', error);
-        // Handle error deleting account
+        
       }
     }
   };

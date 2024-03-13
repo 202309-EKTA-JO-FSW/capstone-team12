@@ -1,48 +1,4 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
 
-// const CreateOrderForm = ({item}) => {
-//   // const [formData, setFormData] = useState([item.ticket._id,item.quantity])
-
-//   const data=item.items.map((item, index) => ( 
-//     [item.ticket._id,
-//     item.quantity]
-//   ))
-  
-
-
-
-//   const handleSubmit = async event => {
-//     event.preventDefault();
-//     try {
-//       const token = localStorage.getItem('token'); 
-//       const response = await axios.post('http://localhost:3001/api/orders', data, {
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       });
-//       console.log('Order created:', response.data);
-//       // Optionally, redirect the user to a success page or display a success message
-
-//       await axios.delete('http://localhost:3001/api/cart/clear', {
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       });
-
-//     } catch (error) {
-//       console.error('Error creating order:', error);
-//       // Display an error message to the user
-//     }
-//   };
-
-//   return (
-//     <button onClick={handleSubmit}>Place order</button>
-
-//   );
-// };
-
-// export default CreateOrderForm;
 import React from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'

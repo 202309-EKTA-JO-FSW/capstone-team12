@@ -1,62 +1,69 @@
-// "use client"
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+"use client"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-// const ProfilePage = () => {
-//   // State variable to store user profile data
-//   const [profileData, setProfileData] = useState(null);
-//   // State variable to store loading state
-//   const [loading, setLoading] = useState(true);
-//   // State variable to store error message
-//   const [error, setError] = useState('');
+const ProfilePage = () => {
+  
+  const [profileData, setProfileData] = useState(null);
+  
+  const [loading, setLoading] = useState(true);
+  
+  const [error, setError] = useState('');
 
-//   // Fetch user profile data when component mounts
-//   useEffect(() => {
-//     const fetchProfileData = async () => {
-//       try {
-//         // Make a GET request to fetch user profile data
-//         const response = await axios.get('http://localhost:3001/api/users/my-profile', {
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem('token')}`,
-//           },
-//         });
-//         // Update profile data state with fetched data
-//         setProfileData(response.data);
-//         setLoading(false);
-//       } catch (error) {
-//         // Handle error if any
-//         setError('Failed to fetch user profile');
-//         setLoading(false);
-//       }
-//     };
+  
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        
+        const response = await axios.get('http://localhost:3001/api/users/my-profile', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        
+        setProfileData(response.data);
+        setLoading(false);
+      } catch (error) {
+        
+        setError('Failed to fetch user profile');
+        setLoading(false);
+      }
+    };
 
-//     fetchProfileData();
-//   }, []);
+    fetchProfileData();
+  }, []);
 
-//   // Render loading spinner if data is being fetched
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
+  useEffect(() => {
+    console.log("Profile Data:", profileData);
+    if (profileData && profileData.DateOfBirth) {
+      const dateOfBirth = profileData.DateOfBirth.slice(0, 10);
+      console.log("Parsed Date:", dateOfBirth);
+    }
+  }, [profileData])
+  
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-//   // Render error message if there's an error
-//   if (error) {
-//     return <div>{error}</div>;
-//   }
+  if (error) {
+    return <div>{error}</div>;
+  }
+  
+  return (
+    <div>
+      <h2>Profile</h2>
+      {profileData && (
+        <div>
+          <p>Name: {profileData.Name}</p>
+          <p>Email: {profileData.Email}</p>
+          <p>Location: {profileData.Location || 'Not specified'}</p>
+          <p>Nationality: {profileData.Nationality || 'Not specified'}</p>
+          <p>Date of Birth: {profileData && profileData.DateOfBirth ? new Date(profileData.DateOfBirth).toLocaleDateString('en-US') : 'Not specified'}</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
-//   return (
-//     <div>
-//       <h2>Profile</h2>
-//       {profileData && (
-//         <div>
-//           <p>Name: {profileData.Name}</p>
-//           <p>Email: {profileData.Email}</p>
-//           <p>Location: {profileData.Location || 'Not specified'}</p>
-//           <p>Nationality: {profileData.Nationality || 'Not specified'}</p>
-//           <p>Date of Birth: {profileData.dateofBirth || 'Not specified'}</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ProfilePage;
+export default ProfilePage;

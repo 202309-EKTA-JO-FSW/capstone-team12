@@ -30,8 +30,8 @@
 // }
 
 import "./globals.css";
-import { Suspense } from 'react'
-import Signup from "./pages/Signup";
+
+
 
 
 
@@ -46,9 +46,7 @@ export default function RootLayout({ children }) {
       <body>
         {children}
 
-      <Suspense fallback={null}>
-          <Signup />
-        </Suspense>
+    
 
       </body>
     </html>
