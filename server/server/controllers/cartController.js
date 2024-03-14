@@ -85,8 +85,9 @@ const getUserCart = async (req, res, next) => {
 
         const cart = await Cart.findOne({ user: userId })
         .populate('items.ticket')
+        // .populate('eventId');
 
-        // .populate('eventId', ['title', ' time', ' location']);
+        
 
         if (!cart) {
             res.status(404);

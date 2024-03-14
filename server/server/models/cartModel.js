@@ -31,9 +31,9 @@ const cartSchema = new Schema({
     
 
         // eventId: {
-        // type: mongoose.Schema.Types.ObjectId,
+        // type: Schema.Types.ObjectId,
         // ref: "Event",
-        // required:true},
+        // },
     items: [cartItemSchema]
 });
 
