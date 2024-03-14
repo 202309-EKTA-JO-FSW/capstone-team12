@@ -5,7 +5,7 @@ import Cart from '../components/Cart';
 import ClearCartButton from '../components/ClearCart';
 import CreateOrderForm from '../components/CreatOrder';
 import RemoveFromCartButton from '../components/RemoveFromCart';
-
+import Link from 'next/link';
 
 
 const CartPage = () => {
@@ -56,7 +56,7 @@ return (
                 <li key={index} className={`list-group-item`}>
                   <div className="row">
                     <div className="col-md-6">
-                      <p><strong>Event ID:</strong> {item.ticket.eventId}</p>
+                      <p><strong>Event:</strong><Link href={`/event/${item.ticket.eventId}`}>Details</Link></p>
                       <p><strong>Ticket ID:</strong> {item.ticket._id}</p>
                       <p><strong>Quantity:</strong> {item.quantity}</p>
                     </div>
@@ -64,7 +64,7 @@ return (
                       <p><strong>Ticket Price:</strong> {item.ticket.price}</p>
                       <p><strong>Total Price:</strong> {item.ticket.price * item.quantity}</p>
                       <p><strong>Ticket Type:</strong> {item.ticket.ticketType}</p>
-                      <RemoveFromCartButton cart={cart}/>
+                      <RemoveFromCartButton ticketId={item.ticket._id}/>
                     </div>
                   </div>
                 </li>

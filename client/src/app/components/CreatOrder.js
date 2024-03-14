@@ -10,7 +10,7 @@ const CreateOrderForm = ({ cart }) => {
     try {
       const token = localStorage.getItem('token');
 
-      // Format data to match the required order format
+      
       const ticketItems = cart.items.map(item => ({
         ticketId: item.ticket._id,
         quantity: item.quantity
@@ -19,7 +19,7 @@ const CreateOrderForm = ({ cart }) => {
       
       console.log(ticketItems)
 
-      // Send POST request to create order
+      
       const response = await axios.post(
         'http://localhost:3001/api/orders',
         {ticketItems} ,
@@ -32,7 +32,7 @@ const CreateOrderForm = ({ cart }) => {
 
       console.log('Order created:', response.data);
 
-      // Clear the cart after placing the order
+      
       await axios.delete('http://localhost:3001/api/cart/clear', {
         headers: {
           Authorization: `Bearer ${token}`

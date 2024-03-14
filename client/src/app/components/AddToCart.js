@@ -1,35 +1,45 @@
-// this goes where we display ticket informations 
-// add this to the ticket :
-{/* <AddToCartButton 
-        ticketId={ticket._id} 
-        onSuccess={handleSuccess} 
-        onError={handleError} 
-      /> */}
-
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddToCartButton = ({ ticketId, onSuccess, onError }) => {
+const AddToCartButton = ({ ticketId ='65ef913a6e8ce92f910409bc'}) => {
+  const [quantity, setQuantity] = useState(1); 
+
+  const handleQuantityChange = (event) => {
+    setQuantity(parseInt(event.target.value)); // Update quantity when input changes
+  };
+
   const addToCart = async () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
         'http://localhost:3001/api/cart/add',
-        { ticketId, quantity: 1 }, 
+        { ticketId, quantity }, 
         {
           headers: {
             Authorization: `Bearer ${token}`
           }
         }
       );
-      onSuccess(); 
+      console.log('Item added to cart successfully.');
+       
     } catch (error) {
       console.error('Error adding item to cart:', error);
-      onError(); 
+      console.log(ticketId);
     }
   };
 
-  return <button onClick={addToCart}>Add to Cart</button>;
+  return (
+    <div>
+      <input
+        type="number"
+        value={quantity}
+        onChange={handleQuantityChange}
+        min="1" 
+        step="1"
+      />
+      <button onClick={addToCart}>Add to Cart</button>
+    </div>
+  );
 };
 
 export default AddToCartButton;

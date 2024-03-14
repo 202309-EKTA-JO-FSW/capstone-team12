@@ -76,7 +76,7 @@ const UserOrders = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user orders:', error);
-        // Handle error, e.g., show error message
+        
       }
     };
 

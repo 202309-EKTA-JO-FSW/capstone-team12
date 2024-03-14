@@ -7,7 +7,7 @@ const DeleteAccountButton = ({ onSuccess }) => {
   
   const handleDeleteAccount = async () => { 
 
-    const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    const confirmed = window.confirm("Are you sure you want to delete your account :(? This action cannot be undone.");
 
     
     if (confirmed) {

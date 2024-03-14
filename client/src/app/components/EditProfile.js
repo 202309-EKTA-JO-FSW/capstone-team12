@@ -35,7 +35,7 @@ const EditProfileForm = ({ profileData, onSuccess }) => {
       
       onSuccess();
     } catch (error) {
-      // Handle form submission error
+      
       setError('Failed to update profile');
     }
   };
