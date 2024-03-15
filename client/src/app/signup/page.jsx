@@ -39,8 +39,10 @@ const Signup = () => {
       });
      
       const token = response.data.token;
+      const userId =response.data._id
      
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId)
       
       router.push('/profile');
     } catch (error) {

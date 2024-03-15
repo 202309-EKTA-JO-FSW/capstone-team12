@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
+
 
 const AddToCartButton = ({ ticketId ='65ef913a6e8ce92f910409bc'}) => {
-  const [quantity, setQuantity] = useState(1); 
+  const [quantity, setQuantity] = useState(1);
+  
+  
 
   const handleQuantityChange = (event) => {
     setQuantity(parseInt(event.target.value)); // Update quantity when input changes
@@ -28,6 +32,9 @@ const AddToCartButton = ({ ticketId ='65ef913a6e8ce92f910409bc'}) => {
     }
   };
 
+  
+
+
   return (
     <div>
       <input
@@ -37,7 +44,7 @@ const AddToCartButton = ({ ticketId ='65ef913a6e8ce92f910409bc'}) => {
         min="1" 
         step="1"
       />
-      <button onClick={addToCart}>Add to Cart</button>
+     <Link href={'/cart'}> <button type='button' class="btn btn-outline-success" onClick={addToCart}>Add to Cart</button></Link>
     </div>
   );
 };

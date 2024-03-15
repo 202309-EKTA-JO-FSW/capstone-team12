@@ -1,9 +1,10 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const EditProfileForm = ({ profileData, onSuccess }) => {
-  // State variables for form inputs and error handling
+  const router = useRouter();
   const [name, setName] = useState(profileData.name);
   const [location, setLocation] = useState(profileData.location || '');
   const [nationality, setNationality] = useState(profileData.nationality || '');
@@ -39,6 +40,10 @@ const EditProfileForm = ({ profileData, onSuccess }) => {
       setError('Failed to update profile');
     }
   };
+  // if (!localStorage.getItem('token')){
+  //   router.push('/PleaseLogin')
+  //  }
+
 
   return (
     <div>

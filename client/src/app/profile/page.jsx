@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProfilePage from '../components/ProfilePage'; 
 import EditProfileForm from '../components/EditProfile'; 
+import { useRouter } from 'next/navigation';
+
 
 const ProfilePageWithEdit = () => {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     
@@ -56,6 +59,12 @@ const ProfilePageWithEdit = () => {
       console.error('Error fetching updated profile data:', error); 
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/Login'); 
+    }
+  }, []);
 
   return (
     <div className="container py-5">

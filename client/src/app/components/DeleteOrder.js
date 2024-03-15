@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const DeleteOrderButton = ({ orderId }) => {
+  const router = useRouter()
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -22,8 +24,13 @@ const DeleteOrderButton = ({ orderId }) => {
     }
   };
 
+  if (!localStorage.getItem('token')){
+    router.push('/PleaseLogin')
+   }
+
+
   return (
-    <button type="button" class="btn btn-outline-success" onClick={handleDelete}>Delete Order</button>
+    <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Delete Order</button>
   );
 };
 

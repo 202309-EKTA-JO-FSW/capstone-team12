@@ -6,10 +6,13 @@ import ClearCartButton from '../components/ClearCart';
 import CreateOrderForm from '../components/CreatOrder';
 import RemoveFromCartButton from '../components/RemoveFromCart';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 
 const CartPage = () => {
   const [cart, setCart] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -29,60 +32,78 @@ const CartPage = () => {
     fetchCart();
   }, []);
   
-  const handleClearCart = async () => {
-    // Refresh the cart after clearing cart
-    await fetchCart();
-  };
+  // if (!localStorage.getItem('token')){
+  //   router.push('/PleaseLogin')
+  //  }
 
-//   return (
-//     <div>
-//       <h1>Cart</h1>
-//       {cart ? <Cart cart={cart} />
-//        : <p>Loading...</p>}
-//     </div>
-//   );
-// };
-return (
-  <div className="bg-light d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-    <div className="container p-5 rounded shadow-lg">
-      <h1 className="text-center mb-4">Cart</h1>
-      {cart ? (
-        <>
-          <div className="mb-3">
-            <h2>Cart Items</h2>
-            <ul className="list-group">
-              {/* Map over cart items and display each item */}
-              {cart.items.map((item, index) => (
-                <li key={index} className={`list-group-item`}>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <p><strong>Event:</strong><Link href={`/event/${item.ticket.eventId}`}>Details</Link></p>
-                      <p><strong>Ticket ID:</strong> {item.ticket._id}</p>
-                      <p><strong>Quantity:</strong> {item.quantity}</p>
+
+  const handleTicketTypeChange = (index, newTicketType) => {
+    const updatedCart = { ...cart };
+    const item = updatedCart.items[index];
+    
+    
+    if (item.ticket.ticketType !== newTicketType) {
+      item.ticket.ticketType = newTicketType;
+      if (newTicketType === 'VIP') {
+        item.ticket.price += 20; // Add $20 to the price for VIP ticket
+      } else {
+        item.ticket.price -= 20; // Subtract $20 from the price for Normal ticket
+      }
+      setCart(updatedCart);
+    }
+  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/Login'); 
+    }
+  }, []);
+
+  return (
+    <div className="bg-light d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+      <div className="container p-5 rounded shadow-lg">
+        <h1 className="text-center mb-4">Cart</h1>
+        {cart ? (
+          <>
+            <div className="mb-3">
+              <h2>Cart Items</h2>
+              <ul className="list-group">
+                {/* Map over cart items and display each item */}
+                {cart.items.map((item, index) => (
+                  <li key={index} className={`list-group-item`}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <p><strong>Event:</strong><Link href={`/event/${item.ticket.eventId}`}>Details</Link></p>
+                        <p><strong>Quantity:</strong> {item.quantity}</p>
+                      </div>
+                      <div className="col-md-6">
+                        <p><strong>Ticket Price:</strong> ${item.ticket.price.toFixed(2)}</p>
+                        <p><strong>Total Price:</strong> ${item.ticket.price.toFixed(2) * item.quantity.toFixed(2)}</p>
+                        <p><strong>Ticket Type:</strong> {item.ticket.ticketType}</p>
+                        
+                        <select value={item.ticket.ticketType} onChange={(e) => handleTicketTypeChange(index, e.target.value)}>
+                          <option value="Normal">Normal</option>
+                          <option value="VIP">VIP</option>
+                        </select>
+                        <RemoveFromCartButton ticketId={item.ticket._id}/>
+                      </div>
                     </div>
-                    <div className="col-md-6">
-                      <p><strong>Ticket Price:</strong> {item.ticket.price}</p>
-                      <p><strong>Total Price:</strong> {item.ticket.price * item.quantity}</p>
-                      <p><strong>Ticket Type:</strong> {item.ticket.ticketType}</p>
-                      <RemoveFromCartButton ticketId={item.ticket._id}/>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <ClearCartButton 
-            onSuccess={() => setCart(null)} 
-            onError={() => alert('Failed to clear cart')} 
-          />
-        </>
-      ) : (
-        <p className="text-center">Cart Is Empty</p>
-      )}
-      <CreateOrderForm cart={cart}/>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <ClearCartButton 
+              onSuccess={() => setCart(null)} 
+              onError={() => alert('Failed to clear cart')} 
+            />
+          </>
+        ) : (
+          <p className="text-center">Cart Is Empty</p>
+        )}
+        <CreateOrderForm cart={cart}/>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default CartPage;

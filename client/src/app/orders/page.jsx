@@ -58,10 +58,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DeleteOrderButton from '../components/DeleteOrder';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 const UserOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUserOrders = async () => {
@@ -77,10 +81,18 @@ const UserOrders = () => {
       } catch (error) {
         console.error('Error fetching user orders:', error);
         
+        
       }
     };
 
     fetchUserOrders();
+  }, []);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/Login'); 
+    }
   }, []);
 
   if (loading) {

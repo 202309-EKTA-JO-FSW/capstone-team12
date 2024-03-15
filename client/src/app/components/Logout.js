@@ -6,6 +6,7 @@ const Logout = ()=>{
     const router = useRouter()
     const handleClick = () =>{
         localStorage.removeItem('token')
+        localStorage.removeItem('userId')
         router.push('/')
     }
     return(

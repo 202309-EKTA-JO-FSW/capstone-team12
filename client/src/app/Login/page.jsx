@@ -20,6 +20,7 @@ const Login = () => {
       if (response.data.token) {
        
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId',response.data._id)
 
         router.push('/profile'); // redirect to events (remeber to change)
       } else {
@@ -60,7 +61,7 @@ const Login = () => {
                   <GoogleSignupButton/>
                 </div>
                 <div className="text-center">
-                  <p className="mb-0">Don't have an account? <Link href="/signup">Sign Up</Link></p>
+                  <p className="mb-0">Don't have an account? <Link  href="/signup">Sign Up</Link></p>
                 </div>
               </form>
             </div>
