@@ -20,7 +20,6 @@ const cartRoutes = require('./routes/cartRoutes')
 
 
 const app = express();
-
 const port =
   process.env.NODE_ENV === "test"
     ? process.env.NODE_LOCAL_TEST_PORT
