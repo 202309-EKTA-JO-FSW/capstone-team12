@@ -15,7 +15,11 @@ const RemoveFromCartButton = ({ ticketId }) => {
     }
   };
 
-  return <button onClick={removeFromCart}>Remove from Cart</button>;
+  return (
+    <button onClick={removeFromCart} className="btn btn-danger">
+      Remove from Cart
+    </button>
+  );
 };
 
 export default RemoveFromCartButton;

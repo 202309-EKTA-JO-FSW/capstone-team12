@@ -41,10 +41,20 @@ const AddToCartButton = ({ ticketId ='65ef913a6e8ce92f910409bc'}) => {
         type="number"
         value={quantity}
         onChange={handleQuantityChange}
-        min="1" 
+        min="1"
         step="1"
+        style={{ marginRight: '10px', width: '50px', padding: '5px' }} // Adjust input styling
       />
-     <Link href={'/cart'}> <button type='button' class="btn btn-outline-success" onClick={addToCart}>Add to Cart</button></Link>
+      <Link href={'/cart'}>
+        <button
+          type="button"
+          className="btn btn-outline-success"
+          onClick={addToCart}
+          style={{ padding: '5px 10px' }} // Adjust button styling
+        >
+          Add to Cart
+        </button>
+      </Link>
     </div>
   );
 };
