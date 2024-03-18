@@ -101,7 +101,7 @@ const Ticket = require('../models/ticketModel');
 // Create a new order
 const createOrder = async (req, res, next) => {
   try {
-      const { boughtTickets, ticketItems } = req.body;
+      const {  ticketItems } = req.body;
       const userId = req.user._id; 
       
       let totalPrice = 0; // Initialize total price
@@ -128,7 +128,7 @@ const createOrder = async (req, res, next) => {
 
       // Create the order with total price
       const order = await Order.create({
-          boughtTickets,
+        //   boughtTickets,
           ticketItems,
           totalPrice, // Include total price in the order
           user: userId // Associate the order with the user

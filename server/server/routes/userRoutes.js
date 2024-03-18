@@ -19,7 +19,7 @@ router.post('/signout', signout)
 
 router.put('/edit-profile/:id', authMiddleware, editProfile);
 
-router.delete('/delete-account/:id', authMiddleware, deleteAccount);
+router.delete('/delete-account/', authMiddleware, deleteAccount);
 
 
 module.exports = router

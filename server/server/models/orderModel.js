@@ -31,7 +31,7 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
     boughtTickets: {
         type: Number,
-        required: true
+        // required: true
     },
     ticketItems: [
         {

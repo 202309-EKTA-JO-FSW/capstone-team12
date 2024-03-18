@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "/dashboard/page": "app/dashboard/page.js",
   "/contact/page": "app/contact/page.js",
   "/events/page": "app/events/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
+=======
+  "/page": "app/page.js",
+  "/filterd/page": "app/filterd/page.js"
+>>>>>>> main
 }
