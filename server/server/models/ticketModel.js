@@ -50,7 +50,7 @@ const ticketSchema = mongoose.Schema({
     eventId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Event",
-        required:true,
+        required: true,
     },
     numberOfTickets: {
         type: Number,
