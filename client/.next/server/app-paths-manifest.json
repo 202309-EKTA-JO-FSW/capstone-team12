@@ -1,11 +1,9 @@
 {
-<<<<<<< HEAD
-  "/dashboard/page": "app/dashboard/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/events/page": "app/events/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
-=======
+  "/not-found": "app/not-found.js",
   "/page": "app/page.js",
-  "/filterd/page": "app/filterd/page.js"
->>>>>>> main
+  "/dashboard/page": "app/dashboard/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/Login/page": "app/Login/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
