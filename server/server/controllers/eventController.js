@@ -28,6 +28,7 @@ const addNewEvent = async (req, res) => {
       'endDate',
       'numberOfGuests',
       'tickets',
+      'description',
 
 
     ];
@@ -50,7 +51,7 @@ const addNewEvent = async (req, res) => {
       reviews: [],
       tags: req.body.tags,
       description: req.body.description,
-      tickets: []
+      tickets: req.body.tickets,
     });
 
     res.status(201).json(result);

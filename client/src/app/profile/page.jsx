@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProfilePage from '../components/ProfilePage'; 
 import EditProfileForm from '../components/EditProfile'; 
+import Logout from '../components/Logout';
+import DeleteAccountButton from '../components/DeleteAccountButton';
 import { useRouter } from 'next/navigation';
 
 
@@ -13,11 +15,9 @@ const ProfilePageWithEdit = () => {
   const router = useRouter();
 
   useEffect(() => {
-    
     fetchProfileData();
   }, []);
 
-  
   const fetchProfileData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/users/my-profile', {
@@ -25,40 +25,32 @@ const ProfilePageWithEdit = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`, 
         },
       });
-      
       setProfileData(response.data); 
     } catch (error) {
       console.error('Error fetching profile data:', error); 
     }
   };
 
-  
   const toggleEditMode = () => {
     setEditMode(!editMode); 
   };
 
-  
   const handleProfileUpdate = async () => {
     try {
-      
       const response = await axios.get('http://localhost:3001/api/users/my-profile', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, 
         },
       });
 
-      
       const updatedProfileData = response.data; 
-
-     
       setProfileData(updatedProfileData);
-
-      
       setEditMode(false); 
     } catch (error) {
       console.error('Error fetching updated profile data:', error); 
     }
   };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -75,7 +67,11 @@ const ProfilePageWithEdit = () => {
               {!editMode ? (
                 <>
                   {profileData && <ProfilePage profileData={profileData} />} 
-                  <button onClick={toggleEditMode} className="btn btn-primary mt-3">Edit Profile</button> 
+                  <button onClick={toggleEditMode} className="btn btn-primary mt-3">Edit Profile</button>
+                  <div className="d-flex justify-content-between mt-3">
+                  <Logout/>
+                  <DeleteAccountButton/>
+                  </div>
                 </>
               ) : (
                 <>
@@ -91,7 +87,10 @@ const ProfilePageWithEdit = () => {
   );
 };
 
-
-
 export default ProfilePageWithEdit;
+
+
+
+
+
 

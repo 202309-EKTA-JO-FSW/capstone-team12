@@ -1,7 +1,7 @@
 {
-  "/not-found": "app/not-found.js",
-  "/page": "app/page.js",
   "/Login/page": "app/Login/page.js",
-  "/signup/page": "app/signup/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/events/[eventId]/page": "app/events/[eventId]/page.js",
+  "/cart/page": "app/cart/page.js",
+  "/profile/page": "app/profile/page.js"
 }

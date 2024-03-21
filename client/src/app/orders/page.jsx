@@ -1,59 +1,4 @@
 'use client'
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import DeleteOrderButton from '../components/DeleteOrder';
-
-// const UserOrders = () => {
-//   const [userOrders, setUserOrders] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchUserOrders = async () => {
-//       try {
-//         const token = localStorage.getItem('token'); 
-//         const response = await axios.get('http://localhost:3001/api/orders', {
-//           headers: {
-//             Authorization: `Bearer ${token}`
-//           }
-//         });
-//         setUserOrders(response.data);
-//         setLoading(false);
-//       } catch (error) {
-//         console.error('Error fetching user orders:', error);
-//         // Handle error, e.g., show error message
-//       }
-//     };
-
-//     fetchUserOrders();
-//   }, []);
-
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
-
-//   return (
-//     <div>
-//       <h2>Your Orders</h2>
-//       {/* {userOrders.length === 0 ? (
-//         <p>No orders found.</p>
-//       ) : ( */}
-//         <ul>
-//           {userOrders.map(order => (
-//             <li key={order._id}>
-//               {/* Display order details */}
-//               <p>Order ID: {order._id}</p>
-//               <p>Total Price: {order.totalPrice}</p>
-//               <DeleteOrderButton orderId={order._id}/>
-//               {/* Add more order details as needed */}
-//             </li>
-//           ))}
-//         </ul>
-      
-//     </div>
-//   );
-// };
-
-// export default UserOrders;
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -61,16 +6,15 @@ import DeleteOrderButton from '../components/DeleteOrder';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-
 const UserOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:3001/api/orders', {
           headers: {
             Authorization: `Bearer ${token}`
@@ -80,18 +24,16 @@ const UserOrders = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user orders:', error);
-        
-        
       }
     };
 
     fetchUserOrders();
   }, []);
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.push('/Login'); 
+      router.push('/Login');
     }
   }, []);
 
@@ -116,8 +58,14 @@ const UserOrders = () => {
                   <p className="mb-1"><strong>Total Price:</strong> ${order.totalPrice.toFixed(2)}</p>
                 </div>
                 <div className="col-md-6">
-                  <p className="mb-1"><strong>Ticket ID:</strong> {order.ticketItems.map(t => t.ticketId)}</p>
-                  <p className="mb-1"><strong>Quantity:</strong> {order.ticketItems.map(t => t.quantity)}</p>
+                  <p className="mb-1"><strong>Ticket IDs:</strong></p>
+                  <ul>
+                    {order.ticketItems.map((ticket, index) => (
+                      <li key={index}>
+                        <strong>Ticket ID:</strong> {ticket.ticketId}, <strong>Quantity:</strong> {ticket.quantity}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
               <DeleteOrderButton orderId={order._id} />
@@ -130,4 +78,5 @@ const UserOrders = () => {
 };
 
 export default UserOrders;
+
 

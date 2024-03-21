@@ -30,7 +30,7 @@ const DeleteOrderButton = ({ orderId }) => {
 
 
   return (
-    <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Delete Order</button>
+    <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Cancel Order</button>
   );
 };
 
