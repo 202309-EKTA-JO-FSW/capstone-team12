@@ -8,7 +8,7 @@ export default function Home() {
     <main >
       <>
         <title>Hilm | Home</title>
-        Home Page
+
         {/* <Test /> */}
         <EventsList />
 

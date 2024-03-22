@@ -30,25 +30,25 @@ const EventsList = () => {
     return (
         <>
             <title> HILM | EVENTS</title>
-            <h1 className="h1 text-center " id="pageHeaderTitle">Events</h1>
+            {/* <h1 className="h1 text-center " id="pageHeaderTitle">Events</h1> */}
             {events && events.map((event, index) => (
-                <Link href={`/events/${event._id}`}>
+                <Link key={event._id} href={`/events/${event._id}`}  >
                     {/* <section key={event._id} className="dark"> */}
                     <section key={event._id} className="light">
                         <div className="container py-4">
                             {/* <article className="postcard dark blue"> */}
                             <article className="postcard light blue">
-                                <a className="postcard__img_link" href="#">
+                                <div className="postcard__img_link" >
                                     <img className="postcard__img" src={`https://picsum.photos/${index % 3 === 0 ? 1000 : index % 3 === 1 ? 501 : 500}/500`} alt="Image Title" />
-                                </a>
+                                </div>
                                 {/* <div className="postcard__text"> */}
                                 <div className="postcard__text t-dark">
 
-                                    <h1 className="postcard__title blue"><a href="#">{event.title} </a></h1>
+                                    <h1 className="postcard__title blue">{event.title} </h1>
                                     <p ><i className="fa-solid fa-location-pin"></i>  {event.location} </p>
 
                                     <div className="postcard__subtitle small">
-                                        <time datetime="">
+                                        <time dateTime="">
                                             <i className="fa-solid fa-clock"></i> {event.time}
                                         </time>
                                     </div>
@@ -77,7 +77,6 @@ const EventsList = () => {
 };
 
 export default EventsList;
-
 
 
 

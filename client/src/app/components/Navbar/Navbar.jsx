@@ -53,6 +53,7 @@ const Navbar = () => {
                                         alt="profile img"
                                     /></Link>
                             </button>
+
                             {/* logout */}
                             <button className="btn btn-light ms-3">
                                 <Link className="nav-link" href="/logout">Logout</Link>
