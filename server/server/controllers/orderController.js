@@ -211,11 +211,23 @@ const updateOrder = async (req, res, next) => {
 };
 
 
-// Delete an existing order
 const deleteOrder = async (req, res, next) => {
     try {
         const orderId = req.params.id;
 
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            res.status(404);
+            return next(new Error('Order not found'));
+        }
+
+        // Restore the quantity of ticket items to the available tickets
+        for (const item of order.ticketItems) {
+            await Ticket.findByIdAndUpdate(item.ticketId, { $inc: { availableTickets: item.quantity } });
+        }
+
+        // Delete the order
         const deletedOrder = await Order.findByIdAndDelete(orderId);
 
         if (!deletedOrder) {

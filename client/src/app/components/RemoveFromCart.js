@@ -15,7 +15,13 @@ const RemoveFromCartButton = ({ ticketId }) => {
     }
   };
 
-  return <button onClick={removeFromCart}>Remove from Cart</button>;
+  return (
+    <div className="col-sm-3 text-lg-end">
+    <i onClick={removeFromCart} className="btn  fas fa-trash"  style={{color: "#f60404"}}></i>
+</div>
+   
+  );
+  
 };
 
 export default RemoveFromCartButton;

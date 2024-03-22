@@ -20,6 +20,7 @@ export default function Home() {
         Home Page
         {/* <Test /> */}
         <EventsList />
+        <AddToCartButton/>
 
       </>
     </main >

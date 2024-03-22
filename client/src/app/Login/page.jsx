@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -18,13 +18,11 @@ const Login = () => {
       const response = await axios.post('http://localhost:3001/api/users/login', { email, password });
     
       if (response.data.token) {
-       
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userId',response.data._id)
-
-        router.push('/profile'); // redirect to events (remeber to change)
+        localStorage.setItem('userId', response.data._id);
+        router.push('/');
       } else {
-        setError('Authentication failed: Token not received');
+        setError('Invalid email or password. Please try again.');
       }
 
       setEmail('');
@@ -37,34 +35,33 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid py-5" style={{ backgroundColor: '#f8f9fa' }}>
+    <div className="container py-5" style={{ backgroundColor: '#f8f9fa' }}>
       <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card shadow">
-            <div className="card-body">
-              <h2 className="text-center mb-4">Login</h2>
-              {error && <p className="text-danger text-center">{error}</p>}
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email:</label>
-                  <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password:</label>
-                  <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </div>
-                <div className="d-grid mb-3">
-                  <button type="submit" className="btn btn-primary">Login</button>
-                </div>
-                <div className="text-center">
-                  <p>Or Login using</p>
-                  <GoogleSignupButton/>
-                </div>
-                <div className="text-center">
-                  <p className="mb-0">Don't have an account? <Link  href="/signup">Sign Up</Link></p>
-                </div>
-              </form>
-            </div>
+        <div className="col-lg-6">
+          <div className="card shadow-lg p-5">
+            <h2 className="text-center mb-4">Login</h2>
+            {error && <p className="text-danger text-center mb-4">{error}</p>}
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">Email:</label>
+                <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">Password:</label>
+                <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              </div>
+              <div className="d-grid mb-3">
+                <button type="submit" className="btn btn-primary btn-block">Login</button>
+              </div>
+              <div className="text-center mb-3">
+                <p>Or Login using</p>
+                <GoogleSignupButton/>
+              </div>
+              <hr />
+              <div className="text-center">
+                <p className="mb-0">Don't have an account? <Link href="/signup" className="text-decoration-none">Sign Up</Link></p>
+              </div>
+            </form>
           </div>
         </div>
       </div>

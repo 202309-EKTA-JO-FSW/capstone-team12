@@ -1,10 +1,21 @@
 'use client'
-import React from 'react'
+import React from 'react';
+import { useState , useEffect } from 'react';
 import Link from "next/link";
+import Logout from '../Logout';
 
 const Navbar = () => {
-    return (
+   
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        // Check authentication status on the client-side
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(token ? true : false);
+    }, []);
+
+
+    return (
         <>
             <nav className="navbar navbar-expand-lg ">
                 <div className="container">
@@ -29,43 +40,50 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link active" href="/dashboard">Dashboard</Link>
                             </li>
-                            {/* <li className="nav-item">
-                                <Link className="nav-link active" href="/profile">Profile</Link>
-                            </li>  */}
                         </ul>
                         <div className="d-flex">
-
-                            <button className="btn btn-light ms-3">
-                                <Link className="nav-link" href="/login">Login</Link>
-                            </button>
-
-                            <button className="btn btn-light ms-3">
-                                <Link className="nav-link" href="/signup">Signup</Link>
-                            </button>
-
-                            {/* profile */}
-                            <button className="btn ms-3"  >
-                                <Link className="nav-link" href="/profile">
-                                    <img
-                                        src="https://picsum.photos/1000/1000"
-                                        className="rounded-circle"
-                                        height="25"
-                                        alt="profile img"
-                                    /></Link>
-                            </button>
-                            {/* logout */}
-                            <button className="btn btn-light ms-3">
-                                <Link className="nav-link" href="/logout">Logout</Link>
-                            </button>
-
+                            
+                            {isLoggedIn ? (
+                                <>
+                                    
+                                    <div className="ms-1">
+                                        <Link href="/profile">
+                                            <img
+                                                src="https://picsum.photos/1000/1000"
+                                                className="rounded-circle"
+                                                height="25"
+                                                alt="profile img"
+                                            />
+                                        </Link>
+                                    </div>
+                                    <Logout/>
+                                    <div className="ms-3">
+                                        
+                                    </div>
+                                    <div className='ms-1'>
+                                        <Link href={'/cart'}>
+                                        <i className="fa-solid fa-cart-shopping"></i>
+                                        </Link>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    
+                                    <div className="ms-3">
+                                        <Link className="nav-link" href="/Login">Login</Link>
+                                    </div>
+                                   
+                                    <div className="ms-3">
+                                        <Link className="nav-link" href="/signup">Signup</Link>
+                                    </div>
+                                </>
+                            )}
                         </div>
-
                     </div>
                 </div>
-            </nav >
-
+            </nav>
         </>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;

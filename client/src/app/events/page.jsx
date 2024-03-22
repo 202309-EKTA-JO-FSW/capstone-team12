@@ -12,6 +12,7 @@ const EventsList = () => {
             const response = await fetch('http://localhost:3001/api/events/')
             const json = await response.json()
             console.log(json)
+            
             if (response.ok) {
                 setEvents(json)
             }
