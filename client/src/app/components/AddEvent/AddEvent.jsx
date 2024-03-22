@@ -14,22 +14,8 @@ const AddEvent = () => {
         tags: '',
         description: '',
         tickets: [],
-        //added
-        // numberOfTickets: '',
-        // // TicketPrice: '',
-        // ticketType: '',
-
     });
 
-    // const [ticketData, setTicketData] = useState({
-
-    //     numberOfTickets: '',
-    //     // TicketPrice: '',
-    //     ticketType: '',
-
-
-
-    // })
 
     const [error, setError] = useState(null);
     ///
@@ -41,32 +27,27 @@ const AddEvent = () => {
         const key = e.target.name;
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
         setEventData({ ...eventData, [key]: value });
-        // setTicketData({ ...ticketData, [key]: value });
+
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const token = localStorage.getItem('token')
         const response = await fetch("http://localhost:3001/api/events/dashboard/admin", {
             method: 'POST',
             body: JSON.stringify(eventData),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+
             },
 
         });
 
-        // const res = await fetch("http://localhost:3001/api/tickets/createTicket", {
-        //     method: 'POST',
-        //     body: JSON.stringify(ticketData),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-
-        // });
-
         const json = await response.json();
-        // const ticketJson = await res.json();
+
 
         if (!response.ok) {
             setError(json.error);
@@ -87,20 +68,9 @@ const AddEvent = () => {
             description: '',
             tickets: []
 
-            // numberOfTickets: '',
-            // ticketType: '',
+
         });
 
-        // setTicketData({
-        //     tickets: [
-        //         {
-        //             numberOfTickets: '',
-        //             // TicketPrice: '',
-        //             ticketType: '',
-        //         }
-
-        //     ],
-        // })
 
         console.log('added new event:', json);
 
@@ -110,9 +80,10 @@ const AddEvent = () => {
         <>
 
             {/* ///////////// */}
-            <button className="btn btn-primary p-3 font-weight-bold w-200 h-110  " onClick={handleOpenModal}>
+            <button className="btn btn-secondary text-bg-dark p-3 font-weight-bold w-200 h-110  " onClick={handleOpenModal}>
                 ADD NEW EVENT
             </button>
+
             {/* /////////////////////////// */}
             <MyModal show={showModal} onClose={handleClose}>
                 {/* Your modal content here */}
@@ -280,49 +251,11 @@ const AddEvent = () => {
                         {error && <div className="error">{error} </div>}
 
                         {/*//////// tickets ///////// */}
-                        <div> {eventData.tickets.numberOfTickets}</div>
-                        {/* ////////////////// */}
-                        {/* number of tickets */}
-                        {/* <div className="input-group flex-nowrap">
-                            <span className="input-group-text" id="addon-wrapping">numberOfTickets
-                            </span>
-                            <input
-                                type="number"
-                                id="numberOfTickets"
-                                name="numberOfTickets"
-                                onChange={handleChange}
-                                value={ticketData.numberOfTickets}
-                                className="form-control"
-                                placeholder="numberOfTickets" aria-label="numberOfTickets
-                                "
-                                aria-describedby="addon-wrapping"
-                            />
-                        </div> */}
-
-                        {/* .................... */}
-                        {/* ticketType */}
-                        {/* <div className="input-group flex-nowrap">
-                            <span className="input-group-text" id="addon-wrapping">
-
-                                ticketType
-                            </span>
-                            <select multiple={false}
-                                id=" ticketType"
-                                name=" ticketType"
-                                value={ticketData.ticketTypes}
-                                onChange={handleChange}
-                                className="form-control"
-                                aria-label=" ticketType"
-                            >
-                                <option value="">Select  ticketType</option>
-                                <option value="Normal">Normal</option>
-                                <option value="VIP">VIP</option>
-                            </select>
-                        </div> */}
-                        {/* .................... */}
+                        <div> {eventData.tickets}</div>
+                        <br />
 
                         {/* ////////////////// */}
-                        <button className="btn btn-primary my-custom-button ">Add Event</button>
+                        <button className="btn btn-secondary text-bg-dark my-custom-button ">Add Event</button>
                     </div >
                 </form >
                 {/* Y///////////////////////// */}
@@ -335,4 +268,3 @@ const AddEvent = () => {
 };
 
 export default AddEvent;
-

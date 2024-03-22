@@ -1,16 +1,14 @@
 'use client'
 import React from 'react'
-import Popper from '@popperjs/core';
 import { useState, useEffect } from 'react'
 import AddEvent from '../components/AddEvent/AddEvent'
 import DeleteEvent from '../components/DeleteEvent/DeleteEvent'
-// import EditEvent from '../components/EditEvent/EditEvent'
-// import AddTicket from '../components/AddTicket/AddTicket'
-// import DeleteTicket from '../components/DeleteTicket/DeleteTicket'
-// import EventControls from '../components/EventControls/EventControls'
-
+import EditEvent from '../components/EditEvent/EditEvent'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const Dashboard = () => {
+    const randomNumber = Math.floor(Math.random() * 3);
+    const imageUrl = `https://picsum.photos/${randomNumber === 0 ? 1000 : randomNumber === 1 ? 501 : 500}/500`;
     const [events, setEvents] = useState(null);
     useEffect(() => {
         const fetchEvents = async () => {
@@ -26,36 +24,12 @@ const Dashboard = () => {
         fetchEvents()
 
     }, []);
-    // 
-    // const [tickets, setTickets] = useState(null);
-    // useEffect(() => {
-    //     const fetchTickets = async () => {
 
-    //         const response = await fetch('http://localhost:3001/api/tickets/getTickets')
-    //         const TicketsJson = await response.json()
-    //         console.log(TicketsJson)
-    //         if (response.ok) {
-    //             setTickets(TicketsJson)
-
-    //         }
-    //     }
-    //     fetchTickets()
-    // }, []);
-    // 
     return (
         <>
             <title>HILM | Dashboard</title>
             <h1 className="h1 text-center " id="pageHeaderTitle"> </h1>
 
-
-            {/* <EditEvent /> */}
-            {/* < AddTicket /> */}
-
-            {/* {events && events.map((e) => (
-                <>
-                    <DeleteEvent key={e._id} event={e} />
-                </>
-            ))} */}
             <div className='dashboard-style'>
                 <link href="" />
                 <div className="container">
@@ -124,39 +98,25 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="col">
-                            <div className="card radius-10  ">
-                                <div className="card-body">
-                                    <div className="d-flex align-items-center">
-                                        <div>
-                                            <p className="mb-0 text-secondary">Total Orders</p>
-                                            <h4 className="my-1 text-warning">8.4K</h4>
-                                            <p className="mb-0 font-13">+20% from last wee</p>
-                                        </div>
-                                        <div className="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i className="fa fa-shopping-cart"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/* ///////////// */}
-                        <div className="col">
                             <div className="card radius-10   border-1  ">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">
-                                        <img src="https://i.pinimg.com/originals/c9/91/72/c99172c17b83d3c620b997858351b2a5.gif" width={200} height={115} />
-
+                                        <img src="https://media.licdn.com/dms/image/sync/D4E27AQEKjFM2VSEeFA/articleshare-shrink_800/0/1708751634115?e=2147483647&v=beta&t=57czBdCxGddD2DzgdFyVz7XQQ8sqLw-sCCT0pC-Cjq8"
+                                            width={200} height={108} />
                                         <div className=" bg-gradient-bloody text-white ms-auto"><i className=""></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {/* ///////////// */}
+
                         {/* //////////////// */}
                         <div className="col">
                             <div className="card radius-10   border-1  ">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">
-                                        <img src="https://cdn.dribbble.com/users/870415/screenshots/2746862/linegraph.gif" width={200} height={115} />
+                                        <img src="https://cdn.pixabay.com/animation/2023/10/22/03/31/03-31-40-761_512.gif" width={200} height={108} />
 
                                         <div className=" bg-gradient-bloody text-white ms-auto"><i className=""></i>
                                         </div>
@@ -169,8 +129,8 @@ const Dashboard = () => {
                             <div className="card radius-10   border-1  ">
                                 <div className="card-body">
                                     <div className="d-flex align-items-center">
-                                        <img src="https://camo.githubusercontent.com/56476e24648bc4866d8599da2689e578514da26835e47d19df0c19f870b2189b/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f64636c706f7a6a67612f696d6167652f75706c6f61642f76313537363438333533302f4847726170685f736e7a6f786c2e676966"
-                                            width={200} height={115} />
+                                        <img src="https://media.licdn.com/dms/image/sync/D4E27AQEKjFM2VSEeFA/articleshare-shrink_800/0/1708751634115?e=2147483647&v=beta&t=57czBdCxGddD2DzgdFyVz7XQQ8sqLw-sCCT0pC-Cjq8"
+                                            width={200} height={108} />
                                         <div className=" bg-gradient-bloody text-white ms-auto"><i className=""></i>
                                         </div>
                                     </div>
@@ -178,52 +138,63 @@ const Dashboard = () => {
                             </div>
                         </div>
                         {/* ///////////// */}
-                        {/*  add event///////////// */}
+
+
+
+                        <div className="col">
+                            <div className="card radius-10   border-1  ">
+                                <div className="card-body">
+                                    <div className="d-flex align-items-center">
+                                        <img src="https://cdn.pixabay.com/animation/2023/10/22/03/31/03-31-40-761_512.gif" width={200} height={108} />
+
+                                        <div className=" bg-gradient-bloody text-white ms-auto"><i className=""></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <AddEvent />
-
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {/* ///////////// */}
             </div>
-            {/*  evets lists /////////////////////////////// */}
+            <br />
+            <h3 className='container col-sm-0'>Recently Added Events</h3>
 
-            {events && events.map((e) => (
-                <div key={e._id}>
-                    <DeleteEvent event={e} />
+            {/* ////////////////////////////////////////////////////////////// */}
+            {events && events.map((event) => (
+
+                <div key={event._id} className="container " >
+                    <div className="text-center mb-5 " >
+                        <p className="lead"> </p>
+                    </div>
+                    <div className="card mb-3  " >
+                        <div className="card-body">
+                            <div className="d-flex flex-column flex-lg-row">
+                                <span className="avatar avatar-text rounded-3 me-4 mb-2 "><img src={imageUrl} className="fill " /></span>
+                                <div className="row flex-fill">
+                                    <div className="col-sm-5">
+                                        <h5 className="h5 ">{event.title}</h5>
+                                        <span className="badge text-secondary">{formatDistanceToNow(new Date(event.createdAt), { addSuffix: true })}</span>
+                                    </div>
+                                    <div className="col-sm-4 py-4 ml-2">
+                                        <span className="badge text-dark   ">{event.category}</span>
+                                        |<span className="badge  text-dark ">{event.tags}</span>
+                                        <span className="badge   text-dark ml-5">| {event.time}</span>
+
+                                    </div>
+                                    <div className="col-sm-3 text-lg-end" >
+                                        <DeleteEvent event={event} />
+                                        <EditEvent event={event} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             ))}
-
-            {/* {events && events.map((e) => (
-                <div key={e._id}>
-                    <DeleteEvent event={e} />
-                </div>
-            ))} */}
-
-            {/* /////////////////////////////// */}
-
-            {/* {tickets && tickets.map((ticket) => (
-                <>
-                    <AddTicket key={ticket._id} ticket={ticket} />
-
-                </>
-            ))} */}
-
         </>
     )
 }

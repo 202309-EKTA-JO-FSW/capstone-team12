@@ -12,7 +12,7 @@ const EventsList = () => {
             const response = await fetch('http://localhost:3001/api/events/')
             const json = await response.json()
             console.log(json)
-            
+
             if (response.ok) {
                 setEvents(json)
             }
@@ -31,7 +31,7 @@ const EventsList = () => {
     return (
         <>
             <title> HILM | EVENTS</title>
-            <h1 className="h1 text-center " id="pageHeaderTitle">Events</h1>
+            {/* <h1 className="h1 text-center " id="pageHeaderTitle">Events</h1> */}
             {events && events.map((event, index) => (
                 <Link href={`/events/${event._id}`}>
                     {/* <section key={event._id} className="dark"> */}
