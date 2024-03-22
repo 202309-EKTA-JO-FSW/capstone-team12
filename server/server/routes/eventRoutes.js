@@ -51,11 +51,9 @@ const filtered = require("../controllers/filterControllers");
 // // to manage events...
 router.route("/")
     .get(eventController.homepageForEvents)// done
-    .get(filtered.getFilteredEventsByTagsCato) //done
-    .get(filtered.getFilteredEventsByPrice)//done
-    .post(filtered.searchforEvents);// done
-// .get(eventController.getFilteredEventsByLocation)// in progress
-// .get(eventController.getFilteredEventsByTime); // in progress
+
+router.route("/search") 
+    .get(filtered.searchforEvents);// done
 
 router.route("/:id")
     .get(eventController.getSingleEventInfo);//done

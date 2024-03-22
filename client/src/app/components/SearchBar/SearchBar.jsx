@@ -5,11 +5,15 @@ import React, { useState } from 'react';
 function SearchBar() {
     const [title, setTitle] = useState('');
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
 
     console.log(events);
     console.log(title);
+
     const fetchEvents = async () => {
+        setLoading(true);
         setError(null);
 
         try {
@@ -21,8 +25,10 @@ function SearchBar() {
             setEvents(data);
         } catch (err) {
             setError(err.message);
-    
-        };}
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSearch = (e) => {
         e.preventDefault(); 
@@ -30,6 +36,7 @@ function SearchBar() {
     };
     console.log(events);
     console.log(title);
+
     return (
         <div>
             <form onSubmit={handleSearch}>
@@ -42,6 +49,7 @@ function SearchBar() {
                 <button type="submit">Search</button>
             </form>
 
+            {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             <ul>
                 {events.map(event => (
