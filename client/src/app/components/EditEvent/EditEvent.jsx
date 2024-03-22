@@ -18,6 +18,7 @@ const EditEvent = ({ event }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token')
 
         const updatedEventData = { ...originalEventData, ...eventData };
 
@@ -26,8 +27,10 @@ const EditEvent = ({ event }) => {
             body: JSON.stringify(updatedEventData),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${token}`,
             },
-        });
+        },
+        );
 
         const json = await response.json();
 

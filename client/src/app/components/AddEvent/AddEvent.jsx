@@ -33,12 +33,14 @@ const AddEvent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token')
 
         const response = await fetch("http://localhost:3001/api/events/dashboard/admin", {
             method: 'POST',
             body: JSON.stringify(eventData),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${token}`,
 
             },
 

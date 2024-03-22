@@ -2,10 +2,16 @@ import React from 'react'
 import { useState } from 'react';
 
 const DeleteEvent = ({ event }) => {
+
     const [error, setError] = useState(null);
     const handleClick = async () => {
+        const token = localStorage.getItem('token')
         const response = await fetch(`http://localhost:3001/api/events/dashboard/admin/event/${event._id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${token}`,
+            },
         })
         const json = await response.json()
 
