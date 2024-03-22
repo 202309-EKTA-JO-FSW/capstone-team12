@@ -1,50 +1,57 @@
 'use client'
-import axios from "axios";
-import React, { useState, useEffect } from "react";
 
-export default function SearchBar() {
+import React, { useState } from 'react';
+
+function SearchBar() {
+    const [title, setTitle] = useState('');
     const [events, setEvents] = useState([]);
-    const [title, setTitle] = useState("");
-// serach by title
-    useEffect(() => {
-        if (title !== "") {
-            axios.get(`http://localhost:3001/api/events/search?title=${title}`)
-                .then(res => {
-                    setEvents(res.data) 
-                })
-                .catch(err => console.log(err));
-        } else {
-            setEvents([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const fetchEvents = async () => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(`http://localhost:3001/api/events/search?title=${encodeURIComponent(title)}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch events.');
+            }
+            const data = await response.json();
+            setEvents(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
-    }, [title]);
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault(); 
+        fetchEvents();
+    };
 
     return (
         <div>
-            <input 
-                type="text" 
-                onChange={(e) => setTitle(e.target.value)} 
-                placeholder="Search"
-                value={title}
-            />
-            <table>
-                <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>category</th>
-                        <th>tags</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {events.map((event) => (
-                        <tr key={event.id}>
-                            <td>{event.title}</td>
-                            <td>{event.category}</td>
-                            <td>{event.tags.join(', ')}</td> {/* Simplified tags rendering */}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <form onSubmit={handleSearch}>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter event title"
+                />
+                <button type="submit">Search</button>
+            </form>
+
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            <ul>
+                {events.map(event => (
+                    <li key={event.id}>{event.title}</li>
+                ))}
+            </ul>
         </div>
     );
 }
 
+export default SearchBar;
