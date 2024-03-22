@@ -1,16 +1,19 @@
 'use client'
 import React from 'react';
+import { useState , useEffect } from 'react';
 import Link from "next/link";
 import Logout from '../Logout';
 
 const Navbar = () => {
    
-    let isLoggedIn = false; 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Check if localStorage is available (client-side only)
-    if (typeof window !== 'undefined') {
-        isLoggedIn = localStorage.getItem('token') ? true : false;
-    }
+    useEffect(() => {
+        // Check authentication status on the client-side
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(token ? true : false);
+    }, []);
+
 
     return (
         <>
