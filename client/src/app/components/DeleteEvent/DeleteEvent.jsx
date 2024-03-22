@@ -2,12 +2,20 @@ import React from 'react'
 import { useState } from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const DeleteEvent = ({ event }) => {
+
     const randomNumber = Math.floor(Math.random() * 3);
     const imageUrl = `https://picsum.photos/${randomNumber === 0 ? 1000 : randomNumber === 1 ? 501 : 500}/500`;
     const [error, setError] = useState(null);
+
     const handleClick = async () => {
+    const token = localStorage.getItem('token')
+
         const response = await fetch(`http://localhost:3001/api/events/dashboard/admin/event/${event._id}`, {
-            method: 'DELETE'
+            method: 'DELETE' ,
+             headers: {
+                'Content-Type': 'application/json',
+                'Authorization':` Bearer ${token}`,
+            },
         })
         const json = await response.json()
 
