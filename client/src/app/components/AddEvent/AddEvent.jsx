@@ -66,7 +66,7 @@ const AddEvent = () => {
             endDate: '',
             tags: '',
             description: '',
-            tickets: []
+            tickets: '',
 
 
         });
