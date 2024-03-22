@@ -68,21 +68,26 @@ const getFilteredEventsByTagsCato = async (req, res, next) => {
 }
 };
 
-const searchforEvents = async(req,res)=>{
-    const{title}= req.body
-    try {
-        const events = await Event.find({ title: new RegExp(title, 'i') });
-      
-        if (events.length === 0) {
-        return res.status(404).json({ message: 'No events found with that title' }); } 
-        res.status(200).json(events);
-    }
-      catch (error) {
-        res.status(500)
-        return next(new Error('Server error'));
-      }
-}
 
+const searchforEvents = async(req,res)=>{
+  const { title } = req.query;
+
+    // Check if the title parameter is provided
+    if (!title) {
+        return res.status(400).json({ message: 'Title query parameter is required.' });
+    }
+    try {
+      const events = await Event.find({ title: new RegExp(title, 'i') });
+
+      if (events.length === 0) {
+          return res.status(404).json({ message: 'No events found with that title.' });
+      }
+
+      res.status(200).json(events);
+  } catch (error) {
+      next(error);
+  }
+};
 module.exports = {
     getFilteredEventsByTagsCato,
     getFilteredEventsByPrice,
