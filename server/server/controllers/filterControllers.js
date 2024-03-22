@@ -1,7 +1,6 @@
-// const mongoose = require('mongoose');
-// const User = require('../models/userModel');
+
 const {Event, Review} = require("../models/eventModel");
-// const {tikets} = require("../models/ticketModel");
+
 
 const getFilteredEventsByTagsCato = async (req, res, next) => {
     try {
