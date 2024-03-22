@@ -28,7 +28,7 @@ const addNewEvent = async (req, res) => {
       'startDate',
       'endDate',
       'numberOfGuests',
-      'tickets',
+
 
 
     ];
@@ -51,13 +51,13 @@ const addNewEvent = async (req, res) => {
       reviews: [],
       tags: req.body.tags,
       description: req.body.description,
-      tickets: []
+      tickets: req.body.tickets,
     });
 
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ 'message': 'Server error occurred while creating the event.' });
+    res.status(500).json({ error: err.message });
   }
 }
 
