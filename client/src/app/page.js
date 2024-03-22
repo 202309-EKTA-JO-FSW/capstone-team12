@@ -15,14 +15,13 @@ export default function Home() {
   const router = useRouter();
   return (
     <main >
-      <>
-        <title>Hilm | Home</title>
-
-        {/* <Test /> */}
-        <EventsList />
-        <AddToCartButton />
-
-      </>
+     
+      <title>Hilm | Home</title>
+        <div><SearchBar />
+          {/* <Test /> */}
+          <EventsList />
+          <AddToCartButton />
+      </div> 
     </main >
   );
 }

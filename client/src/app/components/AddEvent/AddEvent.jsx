@@ -43,7 +43,6 @@ const AddEvent = () => {
                 'Authorization': `Bearer ${token}`,
 
             },
-
         });
 
         const json = await response.json();
