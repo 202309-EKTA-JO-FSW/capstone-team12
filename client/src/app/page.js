@@ -1,6 +1,6 @@
 'use client'
 // import Test from "./components/Test";
-import EventsList from "./events/page";
+import EventsList from './events/page';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { useRouter } from "next/navigation";
@@ -17,10 +17,10 @@ export default function Home() {
     <main >
       <>
         <title>Hilm | Home</title>
-        Home Page
+
         {/* <Test /> */}
         <EventsList />
-        <AddToCartButton/>
+        <AddToCartButton />
 
       </>
     </main >

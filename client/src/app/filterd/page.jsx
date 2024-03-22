@@ -1,5 +1,5 @@
 "use client"
-import 'bootstrap/dist/css/bootstrap.css';
+
 import React from 'react';
 // import axios from 'axios';
 import SearchBar from '../components/SearchBar/SearchBar';
@@ -15,7 +15,7 @@ const EventsPage = () => {
     <div className="container py-5">
       <div className="row justify-content-center">
         <SearchBar />
-        <FilterBy/>
+        <FilterBy />
       </div>
     </div>
   );
