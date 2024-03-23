@@ -8,7 +8,6 @@ const homepageForEvents = async (req, res, next) => {
   try {
     const events = await Event.find({}).sort({ createdAt: -1 });
     res.status(200).json(events);
-    console.log(events)
   }
   catch (error) {
     res.status(500)
