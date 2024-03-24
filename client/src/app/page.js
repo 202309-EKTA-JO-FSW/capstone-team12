@@ -3,26 +3,22 @@
 import EventsList from './events/page';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { useRouter } from "next/navigation";
-import AddToCartButton from "./components/AddToCart";
-import Logout from "./components/Logout";
 import SearchBar from "./components/SearchBar/SearchBar";
-
-
+import EventListContextProvider from './components/Events/EventsList';
+import Display from './components/Display/DispalyEvents';
 
 
 export default function Home() {
-  const router = useRouter();
+
   return (
     <main >
-      <>
         <title>Hilm | Home</title>
-
-        {/* <Test /> */}
-        <EventsList />
-        <AddToCartButton />
-
-      </>
+        <SearchBar />
+        <EventListContextProvider>
+            <title> HILM | EVENTS</title>
+            <h2 className="text-center" style={{ fontSize: '2rem',marginTop: '72px' }}> HILM</h2>
+            <Display  pageName='nonevents'/>
+        </EventListContextProvider>
     </main >
   );
 }
