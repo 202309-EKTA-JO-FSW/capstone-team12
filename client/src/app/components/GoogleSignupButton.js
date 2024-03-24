@@ -10,7 +10,7 @@ const GoogleSignupButton = () => {
   };
 
   return (
-    <button className="btn btn-danger me-2" onClick={handleGoogleSignup}><a class="btn btn-social text-white btn-google-plus"><i class="fa fa-google-plus"></i> Google</a></button>
+    <button className="btn btn-danger me-2" onClick={handleGoogleSignup}><a className="btn btn-social text-white btn-google-plus"><i className="fa fa-google-plus"></i> Google</a></button>
   );
 };
 

@@ -96,10 +96,9 @@ const CartPage = () => {
             <p className="text-center">Cart Is Empty</p>
           )}
           <ClearCartButton onSuccess={() => setCart(null)} onError={() => alert('Failed to clear cart')} />
-        </div>
-        <div className="col-md-4">
           <CreateOrderForm cart={cart} />
         </div>
+      
       </div>
     </div>
   );

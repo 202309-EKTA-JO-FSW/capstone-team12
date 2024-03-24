@@ -42,7 +42,11 @@ const Signup = () => {
       
       router.push('/');
     } catch (error) {
-      setError(error.response.data.message);
+      if (error.response.status === 400 && error.response.data.message === 'User already exists') {
+        setError('User already exists');
+      } else {
+        setError('User already exists');
+      }
     }
   };
 
