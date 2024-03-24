@@ -21,6 +21,7 @@ const UserOrders = () => {
           }
         });
         setUserOrders(response.data);
+        router.push('/orders')
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user orders:', error);
