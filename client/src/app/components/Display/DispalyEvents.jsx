@@ -4,9 +4,10 @@ import React, { useContext, useState, useEffect } from "react";
 import EventListContextProvider, {EventListContext} from "../Events/EventsList";
 import CatogoriesAndTags from "./CatoandTags";
 import Link from "next/link";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col,Card } from 'react-bootstrap';
+import SearchBar from "../SearchBar/SearchBar";
 
-const DisplayContent = ({pageName}) => {
+const DisplayContent = () => {
     const context = useContext(EventListContext)
 
     // const [getEvents, setGetEvents] = useState([]);
@@ -15,6 +16,24 @@ const DisplayContent = ({pageName}) => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [sortOrder, setSortOrder] = useState("");
     const [priceRange, setPriceRange] = useState("");
+
+
+    const getImageForCategory = (category) => {
+        switch (category) {
+            case 'Concerts':
+                return '/concert.jpg';
+            case 'Festivals':
+                return '/MusicFestival.jpg';
+            case 'Sports':
+                return '/sport.jpg';
+            case 'Theater':
+                return '/theater.jpg';
+            case 'Conferences':
+                return '/conference.jpg';
+            default:
+                return '/kids.jpg'; 
+        }
+    };
      
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -23,6 +42,13 @@ const DisplayContent = ({pageName}) => {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
+
+    useEffect(() => {
+        if (context.events) {
+            // Initialize displayedEvents with all events
+            setDisplayedEvents(context.events);
+        }
+    }, [context.events]);
     
 
 
@@ -58,17 +84,24 @@ const DisplayContent = ({pageName}) => {
             setDisplayedEvents(filteredEvents);
         }
     }, [ 
+        setDisplayedEvents,
         priceRange, 
         selectedTags, 
         sortOrder,
         selectedCategories,
     ]);
-
-    return  (
-        <div> 
-        <Container fluid>
-            <Row>
-              
+return(
+    <Container fluid style={{
+        backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
+        filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
+        minHeight: '100vh'
+    }}>
+        <Row className="mb-3">
+            <Col>
+                <SearchBar />
+            </Col>
+        </Row>
+        <Row>
             <div className="mb-3">
                 <select className="form-select" onChange={(e) => setPriceRange(e.target.value)} value={priceRange}>
                     <option value="">Select Price Range</option>
@@ -85,65 +118,43 @@ const DisplayContent = ({pageName}) => {
                 </select>
             </div>
             <Col md={4}>
-            <CatogoriesAndTags
-                selectedCategories={selectedCategories} 
-                setSelectedCategories={setSelectedCategories}
-                selectedTags={selectedTags}
-                setSelectedTags={setSelectedTags}
-                pageName={pageName}
+                <CatogoriesAndTags
+                    selectedCategories={selectedCategories}
+                    setSelectedCategories={setSelectedCategories}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
                 />
             </Col>
-            <Col md={8}>
-            {displayedEvents && displayedEvents.map((event, index) => (
-                <Link key={event._id} href={`/events/${event._id}`}>
-                    <section key={event._id} className="light">
-                        <div className="container py-4">
-                            <article className="postcard light blue">
-                                <img className="postcard__img" src={`https://picsum.photos/${index % 3 === 0 ? 1000 : index % 3 === 1 ? 501 : 500}/500`} alt="Image Title" />
-
-                                <div className="postcard__text t-dark">
-
-                                    <h1 className="postcard__title blue">{event.title} </h1>
-                                    <p ><i className="fa-solid fa-location-pin"></i>  {event.location} </p>
-
-                                    <div className="postcard__subtitle small">
-                                        <time dateTime="">
-                                            <i className="fa-solid fa-clock"></i> {event.time}
-                                        </time>
-                                    </div>
-                                    <div className="postcard__bar"></div>
-                                    <div className="postcard__preview-txt">{event.description} </div>
-                                    <ul className="postcard__tagbox">
-                                        <li className="tag__item "><i className="fa-solid fa-icons"></i> {event.category}</li>
-                                        <li className="tag__item"><i className="fa-solid fa-credit-card"></i> {event.price}$  </li>
-                                        <li className="tag__item play blue">
-                                            <i className="fa-solid fa-people-group"></i> {event.numberOfGuests} Guest</li>
-                                        <li className="tag__item"><i className="fa-regular fa-calendar"></i> {formatDate(event.startDate)}  </li>
-                                        <li className="tag__item"><i className="fa-regular fa-calendar"></i>  {formatDate(event.endDate)} </li>
-                                        <li className="tag__item"><i className="fa-solid fa-hashtag mr-2"></i> {event.tags} </li>
-
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
-                    </section>
-                </Link>
-
-                ))}
-
-            </Col>
-            </Row>
-          </Container>
-    </div>
-    );
-};
+        </Row>
+        <Row xs={1} md={2} lg={3} className="g-4">
+            {displayedEvents.map((event, index) => (
+                <Col key={event._id} className="mb-4">
+                    <Card className="h-100" style={{ border: '3px solid #f3d250', borderRadius: '15px' }}>
+                        <Link href={`/events/${event._id}`}>
+                            <Card.Img variant="top" src={getImageForCategory(event.category)} alt="Event Image" style={{ height: '200px', objectFit: 'cover' }} />
+                        </Link>
+                        <Card.Body>
+                            <Card.Title>{event.title}</Card.Title>
+                            <Card.Text>Price: ${event.price}</Card.Text>
+                            <Card.Text>Category: {event.category}</Card.Text>
+                            <Card.Text>Location: {event.location}</Card.Text>
+                            <Card.Text>Tags: {event.tags}</Card.Text>
+                            <Link href={`/events/${event._id}`}>
+                                <Card.Link>View Details</Card.Link>
+                            </Link>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ))}
+        </Row>
+    </Container>
+)}
 
 
-
-const Display = (pageName) => {
+const Display = () => {
     return (
         <EventListContextProvider>
-            <DisplayContent pageName={pageName}/>
+            <DisplayContent/>
         </EventListContextProvider>
     );
 };

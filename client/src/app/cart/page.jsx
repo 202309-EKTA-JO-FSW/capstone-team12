@@ -54,13 +54,18 @@ const CartPage = () => {
   console.log(cart)
 
   return (
+    <div style={{
+      backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
+      filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
+      minHeight: '100vh'
+  }}>
     <div className="container py-5">
-      <h1 className="text-center mb-4">Cart</h1>
+      <h1 className="text-center mb-4" style={{ color: '#f3d250' }}>Cart</h1>
       <div className="row">
         <div className="col-md-8">
           {cart ? (
             <div className="mb-3">
-              <h2>Cart Items</h2>
+              <h2 style={{ color: '#f3d250' }}>Cart Items</h2>
               <ul className="list-group">
                 {cart.items.map((item, index) => (
                   <li key={index} className="list-group-item">
@@ -96,11 +101,11 @@ const CartPage = () => {
             <p className="text-center">Cart Is Empty</p>
           )}
           <ClearCartButton onSuccess={() => setCart(null)} onError={() => alert('Failed to clear cart')} />
-        </div>
-        <div className="col-md-4">
           <CreateOrderForm cart={cart} />
         </div>
+      
       </div>
+    </div>
     </div>
   );
 };

@@ -35,47 +35,48 @@ function SearchBar() {
 
     return (
         <div>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className="search-form">
                 <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter event title"
+                    className="search-input"
                 />
-                <button type="submit">Search</button>
+                <button type="submit" className="search-button">Search</button>
             </form>
 
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
-            <ul>
-            {console.log(events)}
-                {events.map((event , index)=> (
-                  <Link key={event._id} href={`/events/${event._id}`}>
-                  <section className="light">
-                  <div className="container py-4">
-                      <article className="postcard light blue">
-                              <img className="postcard__img" 
-                              src={`https://picsum.photos/${index % 3 === 0 ? 1000 : index % 3 === 1 ? 501 : 500}/500`} alt="Image Title" />
-                          <div className="postcard__text t-dark">
-
-                              <h1 className="postcard__title blue">{event.title}</h1>
-                              <p ><i className="fa-solid fa-location-pin"></i>  {event.location} </p>
-
-                              <div className="postcard__subtitle small">
-                                  <time dateTime="">
-                                      <i className="fa-solid fa-clock"></i> {event.time}
-                                  </time>
-                              </div>
-             
-                          </div>
-                      </article>
-                  </div>
-              </section></Link>
+            <ul className="event-list">
+                {events.map((event, index) => (
+                    <Link key={event._id} href={`/events/${event._id}`}>
+                        <li className="event-item">
+                            <section className="light">
+                                <div className="container py-4">
+                                    <article className="postcard light blue">
+                                        
+                                        <div className="postcard__text t-dark">
+                                            <h1 className="postcard__title blue">{event.title}</h1>
+                                            <p>
+                                                <i className="fa-solid fa-location-pin"></i> {event.location}
+                                            </p>
+                                            <div className="postcard__subtitle small">
+                                                <time dateTime="">
+                                                    <i className="fa-solid fa-clock"></i> {event.time}
+                                                </time>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
+                        </li>
+                    </Link>
                 ))}
             </ul>
         </div>
     );
-}
+};
 
 export default SearchBar;
 

@@ -37,7 +37,7 @@ const CreateOrderForm = ({ cart }) => {
       });
 
       // Refresh the page to reflect the changes
-      router.reload();
+      router.push('/orders')
     } catch (error) {
       console.error('Error creating order:', error);
     }

@@ -225,7 +225,21 @@ const EditEvent = ({ event }) => {
                             </select>
                         </div>
                         {error && <div className="error">{error} </div>}
-                        <div> {eventData.tickets}</div>
+
+                        <div className="input-group flex-nowrap">
+                            <span className="input-group-text" id="addon-wrapping">Tickets</span>
+                            <input
+                                type="text"
+                                id="tickets"
+                                name="tickets"
+                                onChange={handleChange}
+                                value={eventData.tickets}
+                                className="form-control"
+                                placeholder="Tickets" aria-label="Tickets"
+                                aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        
                         <br />
                         {/* edit button style */}
                         <button className="btn btn-secondary text-bg-dark my-custom-button">Edit Event</button>
