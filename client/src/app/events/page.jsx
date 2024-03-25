@@ -11,7 +11,6 @@ const EventsListContent = () => {
             <SearchBar />
             <EventListContextProvider>
                 <title> HILM | EVENTS</title>
-                <h2 className="text-center" style={{ fontSize: '2rem',marginTop: '72px' }}> Events Page</h2>
                 <Display/>
             </EventListContextProvider>
         </div>

@@ -22,26 +22,26 @@ const Navbar = () => {
                 <Link className="navbar-brand font-weight-bold" href="/">
                         <img src="/logo.webp" alt="Logo" height="40" />
                     </Link>
-                    <Link className="navbar-brand font-weight-bold" href="/">HILM </Link>
+                    <Link className="navbar-brand font-weight-bold" href="/" style={{ color: '#f3d250' }}>HILM </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav mx-auto">
                             <li className="nav-item">
-                                <Link className="nav-link active" href="/" style={{ color: '#A9D6E5' }}>Home</Link>
+                                <Link className="nav-link active" href="/" style={{ color: '#f3d250' }}>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" href="/events" style={{ color: '#A9D6E5' }}>Events</Link>
+                                <Link className="nav-link active" href="/events" style={{ color: '#f3d250' }}>Events</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" href="/about" style={{ color: '#A9D6E5' }}> About</Link>
+                                <Link className="nav-link active" href="/about" style={{ color: '#f3d250' }}> About</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" href="/contact" style={{ color: '#A9D6E5' }}>Contact</Link>
+                                <Link className="nav-link active" href="/contact" style={{ color: '#f3d250' }}>Contact</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" href="/dashboard" style={{ color: '#A9D6E5' }}>Dashboard</Link>
+                                <Link className="nav-link active" href="/dashboard" style={{ color: '#f3d250' }}>Dashboard</Link>
                             </li>
                         </ul>
                         <div className="d-flex">
@@ -73,11 +73,11 @@ const Navbar = () => {
                                 <>
                                     
                                     <div className="ms-3">
-                                        <Link className="nav-link" href="/Login">Login</Link>
+                                        <Link className="nav-link" href="/Login" style={{ color: '#f3d250' }}>Login</Link>
                                     </div>
                                    
                                     <div className="ms-3">
-                                        <Link className="nav-link" href="/signup">Signup</Link>
+                                        <Link className="nav-link" href="/signup" style={{ color: '#f3d250' }}>Signup</Link>
                                     </div>
                                 </>
                             )}

@@ -90,68 +90,65 @@ const DisplayContent = () => {
         sortOrder,
         selectedCategories,
     ]);
-
-    return (
-        <div>
-            <Container fluid style={{ background: '#013a63'}}>
-
-            <Row className="mb-3">
-                <Col>
-                    <SearchBar />
+return(
+    <Container fluid style={{
+        backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
+        filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
+        minHeight: '100vh'
+    }}>
+        <Row className="mb-3">
+            <Col>
+                <SearchBar />
+            </Col>
+        </Row>
+        <Row>
+            <div className="mb-3">
+                <select className="form-select" onChange={(e) => setPriceRange(e.target.value)} value={priceRange}>
+                    <option value="">Select Price Range</option>
+                    <option value="less than 10">Less than $10</option>
+                    <option value="less than 50">Less than $50</option>
+                    <option value="greater than 50">Greater than $50</option>
+                </select>
+            </div>
+            <div className="mb-3">
+                <select className="form-select" onChange={(e) => setSortOrder(e.target.value)} value={sortOrder}>
+                    <option value="">Select Sort Order</option>
+                    <option value="ascending">Price Low to High</option>
+                    <option value="descending">Price High to Low</option>
+                </select>
+            </div>
+            <Col md={4}>
+                <CatogoriesAndTags
+                    selectedCategories={selectedCategories}
+                    setSelectedCategories={setSelectedCategories}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                />
+            </Col>
+        </Row>
+        <Row xs={1} md={2} lg={3} className="g-4">
+            {displayedEvents.map((event, index) => (
+                <Col key={event._id} className="mb-4">
+                    <Card className="h-100" style={{ border: '3px solid #f3d250', borderRadius: '15px' }}>
+                        <Link href={`/events/${event._id}`}>
+                            <Card.Img variant="top" src={getImageForCategory(event.category)} alt="Event Image" style={{ height: '200px', objectFit: 'cover' }} />
+                        </Link>
+                        <Card.Body>
+                            <Card.Title>{event.title}</Card.Title>
+                            <Card.Text>Price: ${event.price}</Card.Text>
+                            <Card.Text>Category: {event.category}</Card.Text>
+                            <Card.Text>Location: {event.location}</Card.Text>
+                            <Card.Text>Tags: {event.tags}</Card.Text>
+                            <Link href={`/events/${event._id}`}>
+                                <Card.Link>View Details</Card.Link>
+                            </Link>
+                        </Card.Body>
+                    </Card>
                 </Col>
-            </Row>
-            <Row>
-                <div className="mb-3">
-                
-                    <select className="form-select" onChange={(e) => setPriceRange(e.target.value)} value={priceRange}>
-                        <option value="">Select Price Range</option>
-                        <option value="less than 10">Less than $10</option>
-                        <option value="less than 50">Less than $50</option>
-                        <option value="greater than 50">Greater than $50</option>
-                    </select>
-                </div>
-                <div className="mb-3">
-                    <select className="form-select" onChange={(e) => setSortOrder(e.target.value)} value={sortOrder}>
-                        <option value="">Select Sort Order</option>
-                        <option value="ascending">Price Low to High</option>
-                        <option value="descending">Price High to Low</option>
-                    </select>
-                    </div>
-                <Col md={4}>
-                    <CatogoriesAndTags
-                        selectedCategories={selectedCategories}
-                        setSelectedCategories={setSelectedCategories}
-                        selectedTags={selectedTags}
-                        setSelectedTags={setSelectedTags}
-                    />
-                </Col>
-                </Row>
-                <Row xs={1} md={2} lg={3} className="g-4">
-                    {displayedEvents.map((event, index) => (
-                        <Col key={event._id} className="mb-4">
-                            <Card className="h-100">
-                                <Link href={`/events/${event._id}`}>
-                                    <Card.Img variant="top" src={getImageForCategory(event.category)} alt="Event Image" style={{ height: '200px', objectFit: 'cover' }} />
-                                </Link>
-                                <Card.Body>
-                                    <Card.Title>{event.title}</Card.Title>
-                                    <Card.Text>Price: ${event.price}</Card.Text>
-                                    <Card.Text>Category: {event.category}</Card.Text>
-                                    <Card.Text>Location: {event.location}</Card.Text>
-                                    <Card.Text>Tags: {event.tags}</Card.Text>
-                                    <Link href={`/events/${event._id}`}>
-                                        <Card.Link>View Details</Card.Link>
-                                    </Link>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-            </Container>
-        </div>
-    );
-};
-
+            ))}
+        </Row>
+    </Container>
+)}
 
 
 const Display = () => {

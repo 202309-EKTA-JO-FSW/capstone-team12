@@ -29,7 +29,7 @@ export default function CatogoriesAndTags(props) {
         return (
             <div>
                 <div className="container">
-                    <h3>Category:</h3>
+                    <h5 style={{color: '#f3d250' }}>Category:</h5>
                     <div className="row">
                         {categoryOptions.map((category, i) => (
                             <div className="col-md-3 mb-3" key={i}>
@@ -43,7 +43,7 @@ export default function CatogoriesAndTags(props) {
                                         )}
                                         id={`category-${category}`}
                                     />
-                                    <label className="form-check-label" htmlFor={`category-${category}`} style={{ fontSize: '14px', color: '#CCCEC6' }}>
+                                    <label className="form-check-label" htmlFor={`category-${category}`} style={{ fontSize: '14px', color: '#f3d250' }}>
                                         {category}
                                     </label>
                                 </div>
@@ -53,7 +53,7 @@ export default function CatogoriesAndTags(props) {
                 </div>
                 {/* Tags filteration here */}
                 <div className="container mt-4">
-                    <h3>Tags:</h3>
+                    <h5 style={{color: '#f3d250' }}>Tags:</h5>
                     <div className="row">
                         {tagOptions.map((tag, i) => (
                             <div className="col-md-3 mb-3" key={i}>
@@ -67,7 +67,7 @@ export default function CatogoriesAndTags(props) {
                                         )}
                                         id={`tag-${tag}`}
                                     />
-                                    <label className="form-check-label" htmlFor={`tag-${tag}`} style={{ fontSize: '14px', color: '#CCCEC6' }}>
+                                    <label className="form-check-label" htmlFor={`tag-${tag}`} style={{ fontSize: '14px', color: '#f3d250' }}>
                                         {tag}
                                     </label>
                                 </div>

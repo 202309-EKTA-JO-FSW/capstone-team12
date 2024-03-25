@@ -35,7 +35,12 @@ const Login = () => {
   };
 
   return (
-    <div className="container py-5" style={{ backgroundColor: '#f8f9fa' }}>
+    <div style={{
+      backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
+      filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
+      minHeight: '100vh'
+  }}>
+    <div className="container py-5" >
       <div className="row justify-content-center">
         <div className="col-lg-6">
           <div className="card shadow-lg p-5">
@@ -65,6 +70,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
