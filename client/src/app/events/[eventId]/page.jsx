@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddToCartButton from '@/app/components/AddToCart';
-import Calendar from 'react-calendar';
+import { Calendar } from 'react-calendar-v07';
 import 'react-calendar/dist/Calendar.css'; 
 
 const EventPage = ({ params }) => {
@@ -21,38 +21,44 @@ const EventPage = ({ params }) => {
     fetchEvent();
   }, []);
 
-  // Function to format date to calendar format (YYYY-MM-DD)
+ 
   const formatDateToCalendar = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   };
-  const backgroundImageUrl = event && `https://picsum.photos/${event.imageWidth || 1000}/500`;
+ 
+  
   return (
-    <div className="event-page-container" style={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="event-page-container" style={{ backgroundImage: `url(${'/bg.jpg'})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div className="container">
         <div className="card">
-          <div className="card-body">
-            {event && (
-              <>
-                <h5 className="card-title">{event.title}</h5>
-                <p className="card-text"><strong>Description: {event.description}</strong></p>
-                <p className="card-text">Time: {event.time}</p>
-                <p className="card-text">Location: {event.location}</p>
-                <p className="card-text">Price: ${event.price}</p>
-                <p className="card-text">Category: {event.category}</p>
-                <p className="card-text">Number of Guests: {event.numberOfGuests}</p>
-                <p className="card-text">Start Date: {formatDateToCalendar(event.startDate)}</p>
-                <p className="card-text">End Date: {formatDateToCalendar(event.endDate)}</p>
-                <p className="card-text">Tags: {event.tags}</p>
+          <div className="card-body row">
+            <div className="col-md-6">
+              {event && (
+                <>
+                  <h5 className="card-title">{event.title}</h5>
+                  <p className="card-text"><strong>Description: {event.description}</strong></p>
+                  <p className="card-text">Time: {event.time}</p>
+                  <p className="card-text">Location: {event.location}</p>
+                  <p className="card-text">Price: ${event.price}</p>
+                  <p className="card-text">Number of Guests: {event.numberOfGuests}</p>
+                  <p className="card-text">Start Date: {formatDateToCalendar(event.startDate)}</p>
+                  <p className="card-text">End Date: {formatDateToCalendar(event.endDate)}</p>
+                  <div className='align-items-center'>
+                    <AddToCartButton ticketId={event.tickets} />
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="col-md-6">
+              {event && (
                 <Calendar
                   value={[new Date(event.startDate), new Date(event.endDate)]} // Set selected dates on the calendar
                   readOnly={true} // Disable user interaction with the calendar
+                  className="w-100 h-100"
                 />
-                <div className='align-items-center'>
-                  <AddToCartButton ticketId={event.tickets} />
-                </div>
-              </>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -61,4 +67,3 @@ const EventPage = ({ params }) => {
 };
 
 export default EventPage;
-

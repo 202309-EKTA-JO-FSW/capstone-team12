@@ -15,9 +15,7 @@ export default function Home() {
         <title>Hilm | Home</title>
         <SearchBar />
         <EventListContextProvider>
-            <title> HILM | EVENTS</title>
-            <h2 className="text-center" style={{ fontSize: '2rem',marginTop: '72px' }}> HILM</h2>
-            <Display  pageName='nonevents'/>
+            <Display/>
         </EventListContextProvider>
     </main >
   );

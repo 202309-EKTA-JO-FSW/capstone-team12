@@ -7,7 +7,7 @@ export default function CatogoriesAndTags(props) {
     const categoryOptions = ['Sports', 'Theater', 'Concerts', 'Festivals', 'Conferences', 'Exhibitions'];
     const tagOptions = ['HotDeal', 'Popular', 'RareFind', 'BudgetFriendly', 'UpComing'];
 
-    const {selectedCategories, setSelectedCategories, setSelectedTags, selectedTags, pageName}= props;
+    const {selectedCategories, setSelectedCategories, setSelectedTags, selectedTags,}= props;
        
         const getImageForCategory = (category) => {
             switch (category) {
@@ -26,75 +26,58 @@ export default function CatogoriesAndTags(props) {
             }
         };
 
-  return (
-    <div>
-        <div className="container">
-            <h3 className="text-white">Category:</h3>
-            <div className="row">
-            {categoryOptions.map((category, i) => (
-                <div className="form-check" key={i}> 
-                    {(pageName === "events") ? (
-                    <div>
-                        <input 
-                            className="form-check-input"
-                            type="checkbox" 
-                            checked={selectedCategories.includes(category)}
-                            onChange={() => setSelectedCategories(prev => 
-                                prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
-                            )}
-                            id={`category-${category}`} 
-                        />
-                    <label className="form-check-label d-block" htmlFor={`category-${category}`}>
-                            {category} 
-                    </label>
-                    {selectedCategories.includes(category) && (
-                        <div className="category-content">
-                            <p>Content for {category}</p>
-                        </div>
-                    )}
-                </div>
-                ) : (
-                    <div key={i}  > 
-                    <Link  href={`/events`} className="form-check-label d-block">
-                    <button
-                        className={`btn ${selectedCategories.includes(category) ? 'btn-success' : 'btn-outline-secondary'}`}
-                        onClick={() => setSelectedCategories(prev => 
-                            prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
-                        )}
-                        id={`button-${category}`}
-                       >
-                       <br/>
-                    {selectedCategories}
-                        {category}
-                      
-                    </button>
-           </Link>  </div>
-        )}
-        </div>
-        ))}</div>
-    
-           </div>                 {/* tags filteration here */}
-        <div>
-            <h3 className="text-white">Tags:</h3>
-            {tagOptions.map((tag, i) => (
-                <div className="form-check" key={i}>
-                    <input 
-                        className="form-check-input"
-                        type="checkbox" 
-                        checked={selectedTags.includes(tag)}
-                        onChange={() => setSelectedTags(prev =>
-                            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-                        )}
-                        id={`tag-${tag}`}
-                    />
-                    <label className="form-check-label" htmlFor={`tag-${tag}`}>
-                        {tag}
-                    </label>
+        return (
+            <div>
+                <div className="container">
+                    <h3>Category:</h3>
+                    <div className="row">
+                        {categoryOptions.map((category, i) => (
+                            <div className="col-md-3 mb-3" key={i}>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        checked={selectedCategories.includes(category)}
+                                        onChange={() => setSelectedCategories(prev =>
+                                            prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+                                        )}
+                                        id={`category-${category}`}
+                                    />
+                                    <label className="form-check-label" htmlFor={`category-${category}`} style={{ fontSize: '14px', color: '#CCCEC6' }}>
+                                        {category}
+                                    </label>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-        </div>
-    </div>
-  )
-}
+                </div>
+                {/* Tags filteration here */}
+                <div className="container mt-4">
+                    <h3>Tags:</h3>
+                    <div className="row">
+                        {tagOptions.map((tag, i) => (
+                            <div className="col-md-3 mb-3" key={i}>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        checked={selectedTags.includes(tag)}
+                                        onChange={() => setSelectedTags(prev =>
+                                            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+                                        )}
+                                        id={`tag-${tag}`}
+                                    />
+                                    <label className="form-check-label" htmlFor={`tag-${tag}`} style={{ fontSize: '14px', color: '#CCCEC6' }}>
+                                        {tag}
+                                    </label>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+                                        }        
+
 
 // <Image src={getImageForCategory(category)} width={300} height={245} alt={category} />
