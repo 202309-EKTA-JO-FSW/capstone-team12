@@ -8,7 +8,6 @@ import SearchBar from "../components/SearchBar/SearchBar";
 const EventsListContent = () => {
     return (
         <div>
-            <SearchBar />
             <EventListContextProvider>
                 <title> HILM | EVENTS</title>
                 <Display/>

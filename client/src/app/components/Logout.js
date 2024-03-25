@@ -13,7 +13,7 @@ const Logout = () => {
     return (
         
         <div className="ms-3">
-        <button className="btn btn-light p-1" style={{ fontSize: '0.875rem', lineHeight: '1.5', borderRadius: '0.25rem',color:'gray' }} onClick={handleClick}>Logout</button>
+        <button className="btn btn-light p-1" style={{ fontSize: '0.875rem', lineHeight: '1.5', borderRadius: '0.25rem',color:'f3d250' }} onClick={handleClick}>Logout</button>
     </div>        
     );
 };

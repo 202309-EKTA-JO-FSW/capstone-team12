@@ -85,6 +85,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+            <div style={{ paddingTop: '56px' }}>{/* Adjust the padding top according to the height of your navbar */}</div>
         </>
     );
 }

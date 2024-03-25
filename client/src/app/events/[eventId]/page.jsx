@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddToCartButton from '@/app/components/AddToCart';
-import { Calendar } from 'react-calendar-v07';
+import  Calendar  from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; 
 
 const EventPage = ({ params }) => {
@@ -38,7 +38,7 @@ const EventPage = ({ params }) => {
                 <>
                   <h5 className="card-title">{event.title}</h5>
                   <p className="card-text"><strong>Description: {event.description}</strong></p>
-                  <p className="card-text">Time: {event.time}</p>
+                  <p className="card-text ">Time: {event.time}</p>
                   <p className="card-text">Location: {event.location}</p>
                   <p className="card-text">Price: ${event.price}</p>
                   <p className="card-text">Number of Guests: {event.numberOfGuests}</p>

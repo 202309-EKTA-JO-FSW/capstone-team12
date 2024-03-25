@@ -13,7 +13,6 @@ export default function Home() {
   return (
     <main >
         <title>Hilm | Home</title>
-        <SearchBar />
         <EventListContextProvider>
             <Display/>
         </EventListContextProvider>
