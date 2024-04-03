@@ -22,6 +22,7 @@ const UserOrders = () => {
         });
         setUserOrders(response.data);
         setLoading(false);
+        router.push('/orders')
       } catch (error) {
         console.error('Error fetching user orders:', error);
       }
@@ -42,8 +43,13 @@ const UserOrders = () => {
   }
 
   return (
+    <div style={{
+      backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
+      filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
+      minHeight: '100vh'
+  }}>
     <div className="container mt-5">
-      <h2 className="mb-4">Your Orders</h2>
+      <h2 className="mb-4" style={{ color: '#f3d250' }}>Your Orders</h2>
       {userOrders.length === 0 ? (
         <div className="alert alert-warning" role="alert">
           No orders found.
@@ -73,6 +79,7 @@ const UserOrders = () => {
           ))}
         </ul>
       )}
+    </div>
     </div>
   );
 };
