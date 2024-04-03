@@ -8,11 +8,9 @@ import SearchBar from "../components/SearchBar/SearchBar";
 const EventsListContent = () => {
     return (
         <div>
-            <SearchBar />
             <EventListContextProvider>
                 <title> HILM | EVENTS</title>
-                <h2 className="text-center" style={{ fontSize: '2rem',marginTop: '72px' }}> Events Page</h2>
-                <Display  pageName='events'/>
+                <Display/>
             </EventListContextProvider>
         </div>
     )
