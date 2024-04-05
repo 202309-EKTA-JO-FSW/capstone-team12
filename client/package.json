@@ -5,8 +5,8 @@
   "proxy": "http://localhost:3001",
   "scripts": {
     "dev": "next dev",
-    "start": "docker-compose up",
-    "build": "docker-compose up --build",
+    "start": "next start",
+    "build": "next build && next start",
     "prune": "docker-compose down -v",
     "stop": "docker-compose down",
     "lint": "next lint"
