@@ -9,8 +9,6 @@ import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import Image from 'next/image';
 
-
-
 export default function Home() {
   const containerRef = useRef(null);
   const lineContainerRef = useRef(null);
@@ -107,4 +105,3 @@ export default function Home() {
   </>
     );
   }
-    
