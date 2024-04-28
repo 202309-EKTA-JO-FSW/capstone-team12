@@ -74,7 +74,7 @@ export default function Home() {
     {/* Add more lines as needed, adjusting the left/right and height properties */}
     </div>
         <Link href="/events">
-          <Image src='/logo.jpg' layout='responsive' width={555} height={455} alt='logo' />
+          <Image src='/logo.webp'  width={555} height={455} alt='logo' />
         </Link>
       </Col>
       <Col md={8}  style={{ paddingTop: '10%' }}>
