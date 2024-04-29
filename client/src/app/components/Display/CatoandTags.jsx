@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
 
 export default function CatogoriesAndTags(props) {
     const categoryOptions = ['Sports', 'Theater', 'Concerts', 'Festivals', 'Conferences', 'Exhibitions'];
@@ -9,22 +7,6 @@ export default function CatogoriesAndTags(props) {
 
     const {selectedCategories, setSelectedCategories, setSelectedTags, selectedTags,}= props;
        
-        const getImageForCategory = (category) => {
-            switch (category) {
-                case 'Concerts':
-                    return '/concert.jpg';
-                case 'Festivals':
-                    return '/MusicFestival.jpg';
-                case 'Sports':
-                    return '/sport.jpg';
-                case 'Theater':
-                    return '/theater.jpg';
-                case 'Conferences':
-                    return '/conference.jpg';
-                default:
-                    return '/kids.jpg'; 
-            }
-        };
 
         return (
             <div>
@@ -79,5 +61,3 @@ export default function CatogoriesAndTags(props) {
         );
                                         }        
 
-
-// <Image src={getImageForCategory(category)} width={300} height={245} alt={category} />
