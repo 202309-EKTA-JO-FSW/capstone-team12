@@ -62,11 +62,11 @@ app.use('/api', orderRoutes);
 
 
 
-// app.get("/test", (req, res) => {
-//   res.json(
-//     "Server connection to client works!!  Good Luck with your capstones :D"
-//   );
-// });
+app.get("/", (req, res) => {
+  res.json(
+    "Server connection to client works!!  Good Luck with your capstones :D"
+  );
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
