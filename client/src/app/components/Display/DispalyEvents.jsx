@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from "react";
 import EventListContextProvider, {EventListContext} from "../Events/EventsList";
 import CatogoriesAndTags from "./CatoandTags";
 import Link from "next/link";
-import { Container, Row, Col,Card } from 'react-bootstrap';
+import { Container, Row, Col,Card, Form } from 'react-bootstrap';
 import SearchBar from "../SearchBar/SearchBar";
 
 const DisplayContent = () => {
@@ -92,41 +92,47 @@ const DisplayContent = () => {
     ]);
 return(
     <Container fluid style={{
-        backgroundImage: 'linear-gradient(135deg, hsla(206, 47%, 9%, 1) 0%, hsla(205, 98%, 20%, 1) 69%)',
-        filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#0C1821", endColorstr="#013A63", GradientType=1)',
         minHeight: '100vh'
     }}>
         <Row className="mb-3">
-            <Col>
+            <Col md={3} className="mb-3">
                 <SearchBar />
+                <Form.Select
+                aria-label="Default select example"
+                className="mb-3"
+                onChange={(e) => setPriceRange(e.target.value)}
+                value={priceRange}
+              >
+                <option value="">Select Price Range</option>
+                <option value="less than 10">Less than $10</option>
+                <option value="less than 50">Less than $50</option>
+                <option value="greater than 50">Greater than $50</option>
+              </Form.Select>
+    
+              {/* Sort Order Selector */}
+              <Form.Select
+                aria-label="Default select example"
+                className="mb-3"
+                onChange={(e) => setSortOrder(e.target.value)}
+                value={sortOrder}
+              >
+                <option value="">Select Sort Order</option>
+                <option value="ascending">Price Low to High</option>
+                <option value="descending">Price High to Low</option>
+              </Form.Select>
+    
+              {/* Categories and Tags */}
+              <CatogoriesAndTags
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+              />
             </Col>
-        </Row>
-        <Row>
-            <div className="mb-3">
-                <select className="form-select" onChange={(e) => setPriceRange(e.target.value)} value={priceRange}>
-                    <option value="">Select Price Range</option>
-                    <option value="less than 10">Less than $10</option>
-                    <option value="less than 50">Less than $50</option>
-                    <option value="greater than 50">Greater than $50</option>
-                </select>
-            </div>
-            <div className="mb-3">
-                <select className="form-select" onChange={(e) => setSortOrder(e.target.value)} value={sortOrder}>
-                    <option value="">Select Sort Order</option>
-                    <option value="ascending">Price Low to High</option>
-                    <option value="descending">Price High to Low</option>
-                </select>
-            </div>
-            <Col md={4}>
-                <CatogoriesAndTags
-                    selectedCategories={selectedCategories}
-                    setSelectedCategories={setSelectedCategories}
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags}
-                />
-            </Col>
-        </Row>
-        <Row xs={1} md={2} lg={3} className="g-4">
+    
+            {/* Main content area (adjust the md value based on your design) */}
+            <Col md={9}>
+            <Row xs={1} md={2} lg={3} className="g-4">
             {displayedEvents.map((event, index) => (
                 <Col key={event._id} className="mb-4">
                     <Card className="h-100" style={{ border: '3px solid #f3d250', borderRadius: '15px' }}>
@@ -146,6 +152,8 @@ return(
                     </Card>
                 </Col>
             ))}
+        </Row>
+            </Col>
         </Row>
     </Container>
 )}
